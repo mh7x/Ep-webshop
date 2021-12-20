@@ -8,7 +8,7 @@
 
 
     <!-- Bootstrap CSS -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="../public/css/style.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
@@ -22,8 +22,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="./index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="./signin.html">Sign in</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="<?= BASE_URL . "" ?>">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . "signin" ?>">Sign in</a></li>
                 <!--<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -36,7 +36,7 @@
                     -->
             </ul>
             <form class="d-flex">
-                <a class="btn btn-outline-dark" href="cart.html" data-toggle="modal" data-target="#exampleModal">
+                <a class="btn btn-outline-dark" href="<?= BASE_URL . "cart" ?>" data-toggle="modal" data-target="#exampleModal">
                     <span class="bi-cart-fill"></span>
                     Cart
                     <span class="badge">0</span>
@@ -69,10 +69,10 @@
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <div class="col mb-5">
-                <a href="./product.html">
+                <a href="<?= BASE_URL . "product" ?>">
                     <div class="card">
                         <!-- Product image-->
-                        <img class="card-image pt-3" src="./assets/product.jpg" />
+                        <img class="card-image pt-3" src="../public/assets/product.jpg" />
                         <!-- Product details-->
                         <div class="card-body">
                             <!-- Product name-->
@@ -96,10 +96,10 @@
                 </a>
             </div>
             <div class="col mb-5">
-                <a href="./product.html">
+                <a href="<?= BASE_URL . "product" ?>">
                     <div class="card">
                         <!-- Product image-->
-                        <img class="card-image pt-3" src="./assets/product.jpg" />
+                        <img class="card-image pt-3" src="../public/assets/product.jpg" />
                         <!-- Product details-->
                         <div class="card-body">
                             <!-- Product name-->
@@ -125,7 +125,7 @@
             <div class="col mb-5">
                 <div class="card">
                     <!-- Product image-->
-                    <img class="card-image pt-3" src="./assets/product.jpg" />
+                    <img class="card-image pt-3" src="../public/assets/product.jpg" />
                     <!-- Product details-->
                     <div class="card-body">
                         <!-- Product name-->
@@ -150,7 +150,7 @@
             <div class="col mb-5">
                 <div class="card">
                     <!-- Product image-->
-                    <img class="card-image pt-3" src="./assets/product.jpg" />
+                    <img class="card-image pt-3" src="../public/assets/product.jpg" />
                     <!-- Product details-->
                     <div class="card-body">
                         <!-- Product name-->
@@ -175,7 +175,7 @@
             <div class="col mb-5">
                 <div class="card">
                     <!-- Product image-->
-                    <img class="card-image pt-3" src="./assets/product.jpg" />
+                    <img class="card-image pt-3" src="../public/assets/product.jpg" />
                     <!-- Product details-->
                     <div class="card-body">
                         <!-- Product name-->
@@ -200,7 +200,7 @@
             <div class="col mb-5">
                 <div class="card">
                     <!-- Product image-->
-                    <img class="card-image pt-3" src="./assets/product.jpg" />
+                    <img class="card-image pt-3" src="../public/assets/product.jpg" />
                     <!-- Product details-->
                     <div class="card-body">
                         <!-- Product name-->
@@ -225,7 +225,7 @@
             <div class="col mb-5">
                 <div class="card">
                     <!-- Product image-->
-                    <img class="card-image pt-3" src="./assets/product.jpg" />
+                    <img class="card-image pt-3" src="../public/assets/product.jpg" />
                     <!-- Product details-->
                     <div class="card-body">
                         <!-- Product name-->
