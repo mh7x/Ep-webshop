@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="../public/css/style.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <title>{Product name}</title>
+    <title>Checkout</title>
 </head>
 
 <body>
@@ -46,51 +46,49 @@
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">{product name}</h1>
+                <h1 class="display-4 fw-bolder">Checkout</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Total price of x products: 420,69€</p>
             </div>
         </div>
     </header>
 
-    <div class="container container-product px-4 px-lg-5 mt-4">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./index.html">Products</a></li>
-                <li class="breadcrumb-item active">{Product name}</li>
-            </ol>
-        </nav>
-        <section class="mb-5 pb-5">
-            <div class="product-row my-5 py-5">
-                <div class="product-image pt-5">
-                    <img src="./assets/product.jpg">
-                </div>
-                <div class="product-description">
-                    <p class="pt-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                        printer
-                        took a galley of type and scrambled it to make a type specimen book. It has survived not only five
-                        centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
-                        more
-                        recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>
-                    <h5 class="my-3">40,00€</h5>
-                    <div class="product-rating mb-4">
-                        <span>Ocena: </span>
-                        <div class="product-stars mx-2">
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star"></div>
-                        </div>
+    <section>
+        <div class="form container my-5 py-5">
+            <form>
+                <div class="form-row my-3">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Name">
                     </div>
-                    <hr>
-                    <btn class="btn btn-outline-dark my-2" href="#">Add to cart</btn>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Surname">
+                    </div>
                 </div>
-            </div>
-        </section>
-    </div>
-
+                <div class="form-group my-3">
+                    <input type="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="form-group my-3">
+                    <input type="text" class="form-control" placeholder="Phone number">
+                </div>
+                <div class="form-group my-3">
+                    <input type="text" class="form-control" placeholder="Address">
+                </div>
+                <div class="form-group my-3">
+                    <input type="text" class="form-control" placeholder="Post code">
+                </div>
+                <div class="form-group my-3">
+                    <input type="text" class="form-control" placeholder="City">
+                </div>
+                <div class="form-group my-3">
+                    <input type="text" class="form-control" placeholder="Country">
+                </div>
+                <input type="checkbox" class="mb-4" id="terms" value="">
+                    <label class="form-check-label" for="terms">
+                        Agree to terms and conditions
+                    </label>
+            </form>
+            <button class="btn btn-success mb-4">Order</button>
+        </div>
+    </section>
 
     <footer class="bg-dark">
         <p class="footer-text py-3">Made with <span style="color: red">♥</span></p>

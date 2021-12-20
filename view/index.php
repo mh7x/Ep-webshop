@@ -8,7 +8,7 @@
 
 
     <!-- Bootstrap CSS -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="../public/css/style.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
@@ -72,7 +72,7 @@
                 <a href="./product.html">
                     <div class="card">
                         <!-- Product image-->
-                        <img class="card-image pt-3" src="./assets/product.jpg" />
+                        <img class="card-image pt-3" src="../public/assets/product.jpg" />
                         <!-- Product details-->
                         <div class="card-body">
                             <!-- Product name-->
@@ -99,7 +99,7 @@
                 <a href="./product.html">
                     <div class="card">
                         <!-- Product image-->
-                        <img class="card-image pt-3" src="./assets/product.jpg" />
+                        <img class="card-image pt-3" src="../public/assets/product.jpg" />
                         <!-- Product details-->
                         <div class="card-body">
                             <!-- Product name-->
@@ -125,7 +125,7 @@
             <div class="col mb-5">
                 <div class="card">
                     <!-- Product image-->
-                    <img class="card-image pt-3" src="./assets/product.jpg" />
+                    <img class="card-image pt-3" src="../public/assets/product.jpg" />
                     <!-- Product details-->
                     <div class="card-body">
                         <!-- Product name-->
@@ -150,7 +150,7 @@
             <div class="col mb-5">
                 <div class="card">
                     <!-- Product image-->
-                    <img class="card-image pt-3" src="./assets/product.jpg" />
+                    <img class="card-image pt-3" src="../public/assets/product.jpg" />
                     <!-- Product details-->
                     <div class="card-body">
                         <!-- Product name-->
@@ -175,7 +175,7 @@
             <div class="col mb-5">
                 <div class="card">
                     <!-- Product image-->
-                    <img class="card-image pt-3" src="./assets/product.jpg" />
+                    <img class="card-image pt-3" src="../public/assets/product.jpg" />
                     <!-- Product details-->
                     <div class="card-body">
                         <!-- Product name-->
@@ -200,7 +200,7 @@
             <div class="col mb-5">
                 <div class="card">
                     <!-- Product image-->
-                    <img class="card-image pt-3" src="./assets/product.jpg" />
+                    <img class="card-image pt-3" src="../public/assets/product.jpg" />
                     <!-- Product details-->
                     <div class="card-body">
                         <!-- Product name-->
@@ -225,7 +225,7 @@
             <div class="col mb-5">
                 <div class="card">
                     <!-- Product image-->
-                    <img class="card-image pt-3" src="./assets/product.jpg" />
+                    <img class="card-image pt-3" src="../public/assets/product.jpg" />
                     <!-- Product details-->
                     <div class="card-body">
                         <!-- Product name-->

@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="../public/css/style.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <title>Sign up</title>
+    <title>{Product name}</title>
 </head>
 
 <body>
@@ -46,34 +46,49 @@
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Sign up</h1>
-                <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                <h1 class="display-4 fw-bolder">{product name}</h1>
             </div>
         </div>
     </header>
 
-    <div class="form container px-4 px-lg-5 mt-5">
-        <form>
-            <div class="form-row my-3">
-                <div class="form-group">
-                    <input type="text" class="sign form-control" placeholder="Enter name">
+    <div class="container container-product px-4 px-lg-5 mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="./index.html">Products</a></li>
+                <li class="breadcrumb-item active">{Product name}</li>
+            </ol>
+        </nav>
+        <section class="mb-5 pb-5">
+            <div class="product-row my-5 py-5">
+                <div class="product-image pt-5">
+                    <img src="../public/assets/product.jpg">
                 </div>
-                <div class="form-group">
-                    <input type="text" class="sign form-control" placeholder="Enter surname">
+                <div class="product-description">
+                    <p class="pt-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                        printer
+                        took a galley of type and scrambled it to make a type specimen book. It has survived not only five
+                        centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
+                        more
+                        recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    </p>
+                    <h5 class="my-3">40,00€</h5>
+                    <div class="product-rating mb-4">
+                        <span>Ocena: </span>
+                        <div class="product-stars mx-2">
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <btn class="btn btn-outline-dark my-2" href="#">Add to cart</btn>
                 </div>
             </div>
-            <div class="form-group my-3">
-                <input type="email" class="sign form-control" placeholder="Enter email">
-            </div>
-            <div class="form-group my-3">
-                <input type="password" class="sign form-control" placeholder="Enter password">
-            </div>
-            <div class="form-group my-3">
-                <input type="password" class="sign form-control" placeholder="Confirm password">
-            </div>
-        </form>
-        <button class="btn btn-outline-dark mt-4 mb-3">Sign up</button>
-        <span>Do you have an account? <a href="./signin.html">Sign in!</a></span>
+        </section>
     </div>
 
 
