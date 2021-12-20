@@ -20,8 +20,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="./index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="./signin.html">Sign in</a></li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= BASE_URL . "" ?>">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . "signin" ?>">Sign in</a></li>
                 <!--<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -34,7 +34,7 @@
                     -->
             </ul>
             <form class="d-flex">
-                <a class="btn btn-outline-dark" href="cart.html" data-toggle="modal" data-target="#exampleModal">
+                <a class="btn btn-outline-dark" href="<?= BASE_URL . "cart" ?>" data-toggle="modal" data-target="#exampleModal">
                     <span class="bi-cart-fill"></span>
                     Cart
                     <span class="badge">0</span>
@@ -86,7 +86,7 @@
                     <div class="list-group-item px-2 py-4 d-flex justify-content-between align-items-center">
                         <div class="mb-0 d-flex align-items-center">
                             <img class="cart-image" src="../public/assets/product.jpg">
-                            <h4 class="cart-product-name mb-0"><a href="./product.html">Asd</a></h4>
+                            <h4 class="cart-product-name mb-0"><a href="<?= BASE_URL . "product" ?>">Asd</a></h4>
                         </div>
                         <div class="mb-0 mx-5 d-flex align-items-center">
                             <h5 class="mb-0 mx-3">120,23€</h5>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="cart-footer m-3">
                     <h4 class="cart-price">Total price: 420,69€</h4>
-                    <a class="btn btn-outline-dark my-2" href="./checkout.html">Checkout</a>
+                    <a class="btn btn-outline-dark my-2" href="<?= BASE_URL . "checkout" ?>">Checkout</a>
                 </div>
             </div>
         </div>

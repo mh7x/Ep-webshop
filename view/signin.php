@@ -22,8 +22,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="./index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link active" href="./signin.html">Sing in</a></li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= BASE_URL . "" ?>">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="<?= BASE_URL . "signin" ?>">Sing in</a></li>
                 <!--<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -36,7 +36,7 @@
                     -->
             </ul>
             <form class="d-flex">
-                <a class="btn btn-outline-dark" href="cart.html" data-toggle="modal" data-target="#exampleModal">
+                <a class="btn btn-outline-dark" href="<?= BASE_URL . "cart" ?>" data-toggle="modal" data-target="#exampleModal">
                     <span class="bi-cart-fill"></span>
                     Cart
                     <span class="badge">0</span>
@@ -64,7 +64,7 @@
             </div>
         </form>
         <button class="btn btn-outline-dark mt-4 mb-3">Sign in</button>
-        <span>Don't have an account yet? <a href="./signup.html">Sign up now!</a></span>
+        <span>Don't have an account yet? <a href="<?= BASE_URL . "signup" ?>">Sign up now!</a></span>
     </div>
 
     <footer class="bg-dark">
