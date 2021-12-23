@@ -1,6 +1,7 @@
 <?php
 
 require_once("model/ArticleDB.php");
+//require_once("model/UserDB.php");
 require_once("ViewHelper.php");
 
 class MainController {
@@ -29,8 +30,8 @@ class MainController {
     public static function signup() {
         echo ViewHelper::render("view/signup.php");
     }
-
     public static function verifySignIn() {
+        
         $rules = [
             "email" => [
                 'filter' => FILTER_VALIDATE_EMAIL
@@ -41,7 +42,27 @@ class MainController {
         ];
 
         $filteredData = filter_input_array(INPUT_POST, $rules);
-        var_dump($filteredData);
-        
+        $user = ArticleDB::getLoginUser($filteredData);
+        if ($user == NULL){
+            $data = ["sporocilo" => "Nepravilni podatki ob prijavi"];
+            echo ViewHelper::render("view/signin.php", ["data" => $data]);
+        }
+        else{
+            $_SESSION["loggedIn"] = true;
+            $_SESSION["userId"] = $user["id"];
+            $_SESSION["userEmail"] = $user["email"];
+            $data = ArticleDB::getAll();
+            echo ViewHelper::render("view/index.php", ["articles" => $data]);
+        }
+    }
+
+    public static function logout() {
+        if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == true) {
+            $_SESSION["loggedIn"] = false;
+            session_unset("userId");
+            session_unset("userEmail");
+        }
+        $data = ArticleDB::getAll();
+        echo ViewHelper::render("view/index.php", ["articles" => $data]);
     }
 }

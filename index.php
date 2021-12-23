@@ -23,7 +23,12 @@ $urls = [
         MainController::cart();
     },
     "signin" => function() {
-        MainController::signin();
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            MainController::verifySignIn();
+        }
+        else if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            MainController::signin();
+        }
     },
     "signup" => function() {
         MainController::signup();
@@ -37,6 +42,12 @@ $urls = [
         } else {
             ArticleController::addForm();
         }
+    },
+    "profile" => function() {
+        MainController::profile();
+    },
+    "logout" => function() {
+        MainController::logout();
     }
 ];
 

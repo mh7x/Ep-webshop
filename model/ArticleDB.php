@@ -37,4 +37,8 @@ class ArticleDB extends AbstractDB {
                         . " ORDER BY id ASC");
     }
 
+    public static function getLoginUser(array $params){
+        $user = parent::query("SELECT id, email FROM Oseba WHERE email = :email and geslo = :password", $params);
+        return $user[0];
+    }
 }
