@@ -8,7 +8,7 @@
 
 
         <!-- Bootstrap CSS -->
-        <link href="../public/css/style.css" rel="stylesheet" />
+        <link href="../../public/css/style.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
@@ -28,7 +28,7 @@
                         <a class="nav-link dropdown-toggle active" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nadzorna plošča</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item active" href="<?= BASE_URL . "control-panel" ?>">Informacije</a></li>
-                            <li><a class="dropdown-item" href="<?= BASE_URL . "add-article"?>">Dodaj artikel</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL . "product/add" ?>">Dodaj artikel</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -45,24 +45,31 @@
         <section>
             <div class="container">
                 <div class="row mt-5 text-center">
-                    <h3>Dodaj artikel</h3>
+                    <h3>Uredi artikel: <?= $article["title"] ?></h3>
                     <div class="form container mt-3">
-                        <form action="<?= BASE_URL . 'add-article' ?>" method="post">
+                        <form action="<?= BASE_URL . 'product/edit' ?>" method="post">
+                            <input type="hidden" name="id" value="<?= $article["id"] ?>"  />
                             <div class="form-group my-3">
-                                <input type="text" name="title" value="<?= $title ?>" class="form-control" placeholder="Naziv">
-                            </div>
-                            <div class="form-group my-3">
-                                <textarea type="text" name="description" value="<?= $description ?>" class="form-control" placeholder="Opis"></textarea>
+                                <input type="text" name="title" value="<?= $article["title"] ?>" class="form-control">
                             </div>
                             <div class="form-group my-3">
-                                <input type="number" name="price" value="<?= $price ?>" class="form-control" placeholder="Cena">
+                                <textarea type="text" name="description" class="form-control form-textarea"><?= $article["description"] ?></textarea>
                             </div>
-                            <div class="form-group">
-                                <input type="file" name="photo" value="<?= $photo ?>" class="form-control-file" id="photoInput" accept=".jpg,.jpeg,.png">
+                            <div class="input-group my-3">
+                                <input type="number" name="price" value="<?= $article["price"] ?>" class="form-control">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">€</span>
+                                </div>
                             </div>
-                            <button class="btn btn-success my-4">Dodaj</button>
+                            <button class="btn btn-success mt-2">Potrdi</button>
                         </form>
-
+                        <hr>
+                        <form action="<?= BASE_URL . "product/delete" ?>" method="post">
+                            <input type="hidden" name="id" value="<?= $article["id"] ?>"  />
+                            <label>Izbris artikla? <input type="checkbox" name="delete_confirmation" /></label>
+                            <br>
+                            <button type="submit" class="btn btn-danger my-2">Izbriši</button>
+                        </form>
                     </div>
                 </div>
             </div>

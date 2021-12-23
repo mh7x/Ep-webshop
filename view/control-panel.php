@@ -28,7 +28,7 @@
                         <a class="nav-link dropdown-toggle active" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nadzorna plošča</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item active" href="<?= BASE_URL . "control-panel" ?>">Informacije</a></li>
-                            <li><a class="dropdown-item" href="<?= BASE_URL . "add-article"?>">Dodaj artikel</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL . "product/add"?>">Dodaj artikel</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -60,7 +60,7 @@
                                 <div class="card-stars">
                                     <div class="text-dark mx-2">Ocena uporabnikov: </div>
                                     <?php
-                                    $empty = 5 - $article["review"];
+                                    $empty = 5 - $article["review"];    
                                     for ($i = 0; $i < $article["review"]; $i++) {
                                         echo '<div class="bi-star-fill"></div>';
                                     }
@@ -69,7 +69,7 @@
                                     }
                                     ?>
                                 </div>
-                                <button class="btn btn-warning mx-3">Uredi</button>
+                                <a class="btn btn-warning mx-3" href="<?= BASE_URL . "product/edit?id=" . $article["id"] ?>">Uredi</a>
                             </div>
                         </div>
                     <?php endforeach ?>

@@ -48,6 +48,44 @@ class MainController {
         ]);
     }
 
+    public static function editFrom($article = []) {
+        if (empty($article)) {
+            $rules = [
+                "id" => [
+                    "filter" => FITLER_VALIDATE_INT,
+                    "options" => ["min_range" => 1]
+                ]
+            ];
+
+            $data = filter_input_array(INPUT_GET, $rules);
+            
+            if (!self::checkValues($data)) {
+                throw new InvalidArgumentException();
+            }
+            
+            $article = ArticleDB::get($data);
+        }
+        
+        echo ViewHelper::render("view/edit-article.php", ["article" => $article]);
+    }
+
+    public static function edit() {
+        $rules = self::getRules();
+        $rules["id"] = [
+            'filter' => FILTER_VALIDATE_INT,
+            'options' => ['min_range' => 1]
+        ];
+        
+        $data = filter_input_array(INPUT_POST, $rules);
+
+        if (self::checkValues($data)) {
+            ArticleDB::update($data);
+            ViewHelper::redirect(BASE_URL . "product?id=" . $data["id"]);
+        } else {
+            self::editForm($data);
+        }
+    }
+
     /**
      * Returns TRUE if given $input array contains no FALSE values
      * @param type $input

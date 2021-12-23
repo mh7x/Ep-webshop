@@ -117,6 +117,7 @@ footer {
 .product-row {
   display: flex;
   flex-direction: row;
+  gap: 50px;
 }
 
 .product-rating {
@@ -172,4 +173,8 @@ footer {
 /***  Administration  ***/
 .cp-image {
   width: 80px;
+}
+
+.form-textarea {
+    height: 300px;
 }

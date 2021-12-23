@@ -19,13 +19,13 @@ class ArticleController {
 
         if (self::checkValues($data)) {
             $id = ArticleDB::insert($data);
-            echo ViewHelper::redirect(BASE_URL . "");
+            echo ViewHelper::redirect(BASE_URL . "product?id=" . $id);
         } else {
             self::addForm($data);
         }
     }
 
-    public static function editFrom($article = []) {
+    public static function editForm($article = []) {
         if (empty($article)) {
             $rules = [
                 "id" => [
@@ -56,8 +56,8 @@ class ArticleController {
         $data = filter_input_array(INPUT_POST, $rules);
 
         if(self::checkValues($data)) {
-            ArticleDB:update($data);
-            //ViewHelper::redirect(BASE_URL . "articles?id=" . $data["id"]);
+            ArticleDB::update($data);
+            ViewHelper::redirect(BASE_URL . "product?id=" . $data["id"]);
         } else {
             self::editForm($data);
         }
@@ -76,10 +76,10 @@ class ArticleController {
         
         if (self::checkValues($data)) {
             ArticleDB::delete($data);
-            $url = BASE_URL;
+            $url = BASE_URL . "control-panel";
         } else {
             if (isset($data["id"])) {
-                $url = BASE_URL . "articles/edit?id=" . $data["id"];
+                $url = BASE_URL . "product/edit?id=" . $data["id"];
             } else {
                 $url = BASE_URL . "";
             }
