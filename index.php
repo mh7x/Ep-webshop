@@ -3,6 +3,7 @@
 session_start();
 
 require_once ("controller/MainController.php");
+require_once ("controller/ArticleController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 
@@ -26,6 +27,16 @@ $urls = [
     },
     "signup" => function() {
         MainController::signup();
+    },
+    "control-panel" => function() {
+        MainController::controlPanel();
+    },
+    "add-article" => function() {
+        if  ($_SERVER["REQUEST_METHOD"] == "POST") {
+            ArticleController::add();
+        } else {
+            ArticleController::addForm();
+        }
     }
 ];
 

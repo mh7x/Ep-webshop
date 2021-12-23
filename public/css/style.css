@@ -119,10 +119,6 @@ footer {
   flex-direction: row;
 }
 
-.product-image img {
-  height: 300px;
-}
-
 .product-rating {
   display: flex;
   flex-direction: row;
@@ -170,4 +166,10 @@ footer {
 
 .cart-footer {
   text-align: right;
+}
+
+
+/***  Administration  ***/
+.cp-image {
+  width: 80px;
 }
