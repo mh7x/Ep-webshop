@@ -41,4 +41,18 @@ class ArticleDB extends AbstractDB {
         $user = parent::query("SELECT id, email FROM Oseba WHERE email = :email and geslo = :password", $params);
         return $user[0];
     }
+
+    public static function getUserById(array $id) {
+        $user = parent::query("SELECT * FROM Oseba WHERE id = :id", $id);
+        if (count($user) == 1){
+            return $user[0];
+        }else{
+            throw new InvalidArgumentException("No such user");
+        }
+    }
+
+    public static function changePassword(array $params) {
+        $user = parent::query("UPDATE Oseba SET geslo = :password WHERE id = :id", $params);
+        return $user[0];
+    }
 }

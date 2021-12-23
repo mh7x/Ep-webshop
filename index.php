@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 require_once ("controller/MainController.php");
 require_once ("controller/ArticleController.php");
@@ -8,6 +11,7 @@ require_once ("controller/ArticleController.php");
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
+
 
 $urls = [
     "" => function () {
@@ -48,6 +52,9 @@ $urls = [
     },
     "logout" => function() {
         MainController::logout();
+    },
+    "change_password" => function() {
+        MainController::change_password();
     }
 ];
 
