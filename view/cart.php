@@ -13,41 +13,38 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
     <link rel="icon" type="image/x-icon" href="../public/assets/favicon.ico" />
-    <title>Cart</title>
+    <title>Košarica</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= BASE_URL . "" ?>">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . "signin" ?>">Sign in</a></li>
-                <!--<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>
-                    -->
-            </ul>
-            <form class="d-flex">
-                <a class="btn btn-outline-dark" href="<?= BASE_URL . "cart" ?>" data-toggle="modal" data-target="#exampleModal">
-                    <span class="bi-cart-fill"></span>
-                    Cart
-                    <span class="badge">0</span>
-                </a>
-            </form>
-        </div>
-    </nav>
+            <div class="container">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= BASE_URL . "" ?>">Domov</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . "signin" ?>">Prijava</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nadzorna plošča</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item active" href="<?= BASE_URL . "control-panel" ?>">Informacije</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL . "add-article"?>">Dodaj artikel</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <a class="btn btn-outline-dark" href="<?= BASE_URL . "cart" ?>" data-toggle="modal" data-target="#exampleModal">
+                        <span class="bi-cart-fill"></span>
+                        Košarica
+                        <span class="badge">0</span>
+                    </a>
+                </form>
+            </div>
+        </nav>
 
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Cart</h1>
-                <p class="lead fw-normal text-white-50 mb-0">Total price of x products: 420,69€</p>
+                <h1 class="display-4 fw-bolder">Košarica</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Skupna cena x artiklov: 420,69€</p>
             </div>
         </div>
     </header>
@@ -55,8 +52,8 @@
         <div class="container">
             <div class="row">
                 <div class="cart-header d-flex justify-content-between mx-3">
-                    <p>X products in cart</p>
-                    <a class="cart-remove-all" href="#">Remove all products from cart</a>
+                    <p>X artiklov v košarici</p>
+                    <a class="cart-remove-all" href="#">Odstrani vse artikle iz košarice</a>
                 </div>
                 <div class="cart-body list-group">
                     <div class="list-group-item px-2 py-4 d-flex justify-content-between align-items-center">
@@ -97,8 +94,8 @@
                     </div>
                 </div>
                 <div class="cart-footer m-3">
-                    <h4 class="cart-price">Total price: 420,69€</h4>
-                    <a class="btn btn-outline-dark my-2" href="<?= BASE_URL . "checkout" ?>">Checkout</a>
+                    <h4 class="cart-price">Skupna cena z DDV: 420,69€</h4>
+                    <a class="btn btn-outline-dark my-2" href="<?= BASE_URL . "checkout" ?>">Na blagajno</a>
                 </div>
             </div>
         </div>

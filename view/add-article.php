@@ -22,10 +22,10 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= BASE_URL . "" ?>">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . "signin" ?>">Sign in</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= BASE_URL . "" ?>">Domov</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . "signin" ?>">Prijava</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Control panel</a>
+                        <a class="nav-link dropdown-toggle active" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nadzorna plošča</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="<?= BASE_URL . "control-panel" ?>">Informacije</a></li>
                             <li><a class="dropdown-item active" href="<?= BASE_URL . "add-article" ?>">Dodaj artikel</a></li>
@@ -35,7 +35,7 @@
                 <form class="d-flex">
                     <a class="btn btn-outline-dark" href="<?= BASE_URL . "cart" ?>" data-toggle="modal" data-target="#exampleModal">
                         <span class="bi-cart-fill"></span>
-                        Cart
+                        Košarica
                         <span class="badge">0</span>
                     </a>
                 </form>

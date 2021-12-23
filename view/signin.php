@@ -15,41 +15,38 @@
 
 
     <link rel="icon" type="image/x-icon" href="../public/assets/favicon.ico" />
-    <title>Sign in</title>
+    <title>Prijava</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= BASE_URL . "" ?>">Home</a></li>
-                <li class="nav-item"><a class="nav-link active" href="<?= BASE_URL . "signin" ?>">Sing in</a></li>
-                <!--<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>
-                    -->
-            </ul>
-            <form class="d-flex">
-                <a class="btn btn-outline-dark" href="<?= BASE_URL . "cart" ?>" data-toggle="modal" data-target="#exampleModal">
-                    <span class="bi-cart-fill"></span>
-                    Cart
-                    <span class="badge">0</span>
-                </a>
-            </form>
-        </div>
-    </nav>
+            <div class="container">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= BASE_URL . "" ?>">Domov</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= BASE_URL . "signin" ?>">Prijava</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nadzorna plošča</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item active" href="<?= BASE_URL . "control-panel" ?>">Informacije</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL . "add-article"?>">Dodaj artikel</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <a class="btn btn-outline-dark" href="<?= BASE_URL . "cart" ?>" data-toggle="modal" data-target="#exampleModal">
+                        <span class="bi-cart-fill"></span>
+                        Košarica
+                        <span class="badge">0</span>
+                    </a>
+                </form>
+            </div>
+        </nav>
 
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Sign in</h1>
-                <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                <h1 class="display-4 fw-bolder">Prijava</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Prijavite se, da lahko spremljate svoja naročila</p>
             </div>
         </div>
     </header>
@@ -57,14 +54,14 @@
     <div class="form container px-4 px-lg-5 mt-5">
         <form>
             <div class="form-group my-3">
-                <input type="email" class="sign form-control" placeholder="Enter email">
+                <input type="email" class="sign form-control" placeholder="E-pošta">
             </div>
             <div class="form-group my-3">
-                <input type="password" class="sign form-control" placeholder="Enter password">
+                <input type="password" class="sign form-control" placeholder="Gesol">
             </div>
         </form>
-        <button class="btn btn-outline-dark mt-4 mb-3">Sign in</button>
-        <span>Don't have an account yet? <a href="<?= BASE_URL . "signup" ?>">Sign up now!</a></span>
+        <button class="btn btn-outline-dark mt-4 mb-3">Prijava</button>
+        <span>Še nisi registriran uporabnik? <a href="<?= BASE_URL . "signup" ?>">Registracija</a></span>
     </div>
 
     <footer class="bg-dark">
