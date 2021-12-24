@@ -10,7 +10,7 @@
   margin: 2px;
 }
 footer {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .footer-text {
   text-align: center;
@@ -122,6 +122,7 @@ footer {
 .product-row {
   display: flex;
   flex-direction: row;
+  gap: 50px;
 }
 
 .product-rating {
@@ -177,4 +178,8 @@ footer {
 /***  Administration  ***/
 .cp-image {
   width: 80px;
+}
+
+.form-textarea {
+    height: 300px;
 }

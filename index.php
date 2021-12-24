@@ -45,7 +45,7 @@ $urls = [
     "control-panel" => function() {
         MainController::controlPanel();
     },
-    "add-article" => function() {
+    "product/add" => function() {
         if  ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::add();
         } else {
@@ -63,6 +63,16 @@ $urls = [
     },
     "update_user" => function() {
         MainController::update_user();
+    },
+    "product/edit" => function() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            ArticleController::edit();
+        } else {
+            ArticleController::editForm();
+        }
+    },
+    "product/delete" => function() {
+        ArticleController::delete();
     }
 ];
 
