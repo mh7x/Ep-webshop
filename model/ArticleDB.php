@@ -36,5 +36,4 @@ class ArticleDB extends AbstractDB {
                         . " FROM article"
                         . " ORDER BY id ASC");
     }
-
 }
