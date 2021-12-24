@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 require_once ("controller/MainController.php");
 require_once ("controller/ArticleController.php");
@@ -8,6 +11,7 @@ require_once ("controller/ArticleController.php");
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
+
 
 $urls = [
     "" => function () {
@@ -22,11 +26,21 @@ $urls = [
     "cart" => function () {
         MainController::cart();
     },
-    "signin" => function () {
-        MainController::signin();
+    "signin" => function() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            MainController::verifySignIn();
+        }
+        else if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            MainController::signin();
+        }
     },
-    "signup" => function () {
-        MainController::signup();
+    "signup" => function() {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            MainController::signup();
+        }
+        else if($_SERVER["REQUEST_METHOD"] == "POST"){
+            MainController::create_user();
+        }
     },
     "control-panel" => function () {
         MainController::controlPanel();
@@ -38,7 +52,19 @@ $urls = [
             ArticleController::addForm();
         }
     },
-    "product/edit" => function () {
+    "profile" => function() {
+        MainController::profile();
+    },
+    "logout" => function() {
+        MainController::logout();
+    },
+    "change_password" => function() {
+        MainController::change_password();
+    },
+    "update_user" => function() {
+        MainController::update_user();
+    },
+    "product/edit" => function() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::edit();
         } else {

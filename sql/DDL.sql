@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS Posta (
 );
 
 CREATE TABLE IF NOT EXISTS Stranka (
+    id_stranke INT PRIMARY KEY,
     id_osebe INT NOT NULL,
     naslov TEXT NOT NULL,
     posta INT NOT NULL,
