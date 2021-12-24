@@ -1,7 +1,7 @@
 <?php
 
 require_once("model/ArticleDB.php");
-//require_once("model/UserDB.php");
+require_once("model/UserDB.php");
 require_once("ViewHelper.php");
 
 class MainController {
@@ -90,7 +90,7 @@ class MainController {
         ];
         $filteredData = filter_input_array(INPUT_POST, $rules);
         $params = ["email" => $filteredData["email"]];
-        $user = ArticleDB::getLoginUser($params);
+        $user = UserDB::getLoginUser($params);
         if ($user == NULL){
             $data = ["sporocilo" => "Uporabnik s tem e-naslovom ne obstaja."];
             echo ViewHelper::render("view/signin.php", ["data" => $data]);
@@ -123,7 +123,7 @@ class MainController {
     public static function profile() {
         $id = $_SESSION["userId"];
         $params = ["id" => $id];
-        $user = ArticleDB::getUserById($params);
+        $user = UserDB::getUserById($params);
         echo ViewHelper::render("view/profile.php", ["user" => $user]);
     }
 
@@ -137,7 +137,7 @@ class MainController {
         $filteredData = filter_input_array(INPUT_POST, $rules);
         $hashedPassword = password_hash($filteredData["password"], PASSWORD_DEFAULT);
         $params = ["id" => $_SESSION["userId"], "password" => $hashedPassword];
-        $user = ArticleDB::changePassword($params);
+        $user = UserDB::changePassword($params);
         return json_encode($user);
     }
 
@@ -156,7 +156,7 @@ class MainController {
 
         $filteredData = filter_input_array(INPUT_POST, $rules);
         $params = ["name" => $filteredData["name"], "surname" => $filteredData["surname"], "email" => $filteredData["email"], "id" => $_SESSION["userId"]];
-        $user = ArticleDB::updateUser($params);
+        $user = UserDB::updateUser($params);
         return json_encode($user);
     }
 
@@ -191,6 +191,6 @@ class MainController {
         $password = $filteredData["password"];
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $filteredData["password"] = $hashedPassword;
-        $user = ArticleDB::createUser($filteredData);
+        $user = UserDB::createUser($filteredData);
     }
 }
