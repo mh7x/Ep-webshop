@@ -55,6 +55,9 @@ $urls = [
     },
     "change_password" => function() {
         MainController::change_password();
+    },
+    "update_user" => function() {
+        MainController::update_user();
     }
 ];
 

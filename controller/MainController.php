@@ -129,9 +129,27 @@ class MainController {
         ];
 
         $filteredData = filter_input_array(INPUT_POST, $rules);
-        var_dump($filteredData);
         $params = ["id" => $_SESSION["userId"], "password" => $filteredData["password"]];
         $user = ArticleDB::changePassword($params);
+        return json_encode($user);
+    }
+
+    public static function update_user() {
+        $rules = [
+            "name" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "surname" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "email" => [
+                'filter' => FILTER_VALIDATE_EMAIL
+            ]
+        ];
+
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $params = ["name" => $filteredData["name"], "surname" => $filteredData["surname"], "email" => $filteredData["email"], "id" => 1];
+        $user = ArticleDB::updateUser($params);
         return json_encode($user);
     }
 }

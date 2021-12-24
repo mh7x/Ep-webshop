@@ -55,4 +55,9 @@ class ArticleDB extends AbstractDB {
         $user = parent::query("UPDATE Oseba SET geslo = :password WHERE id = :id", $params);
         return $user[0];
     }
+
+    public static function updateUser(array $params) {
+        $user = parent::query("UPDATE Oseba SET ime = :name, priimek = :surname, email = :email WHERE id = :id", $params);
+        return $user[0];
+    }
 }

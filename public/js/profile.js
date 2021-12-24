@@ -31,9 +31,9 @@ function verifyPassword(password1, password2){
 }
 
 function updateUser(){
-    let name = $("#name");
-    let surname = $("#surname");
-    let email = $("#email");
+    let name = $("#name").val();
+    let surname = $("#surname").val();
+    let email = $("#email").val();
 
     let obj = {
         "name": name,
@@ -46,13 +46,12 @@ function updateUser(){
         url: baseUrl + "update_user",
         data: obj,
         success: function (response) {
-            
+            location.reload();
         }
     });
 }
 
 $(document).ready(function () {
-    console.log(baseUrl);
     $("#change_password").click(changePassword);
     $("#update_user").click(updateUser);
 });

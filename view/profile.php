@@ -51,7 +51,10 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder"> <?= $user["ime"] . " " . $user["priimek"] ?> </h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Prikaz podatkov tvojega profila</p>
+                    <p class="lead fw-normal text-white-50 mb-0"><?php if($user["status"] == "admin") echo "Administrator";
+                    else if ($user["status"] == "stranka") echo "Stranka"; 
+                    else if($user["status"] == "prodajalec") echo "Prodajalec"; ?>
+                    </p>
                 </div>
             </div>
         </header>
@@ -62,16 +65,16 @@
                     <h3>Osnovni podatki</h3>
                 </div>             
                 <div class="form-group my-3">
-                    <input type="text" name="ime" id="ime" class="sign form-control" value=" <?= $user["ime"] ?> ">
+                    <input type="text" name="ime" id="name" class="sign form-control" value="<?=$user["ime"]?>">
                 </div>
                 <div class="form-group my-3">
-                    <input type="text" id="priimek" class="sign form-control" value=" <?= $user["priimek"] ?> ">
+                    <input type="text" id="surname" class="sign form-control" value="<?=$user["priimek"]?>">
                 </div>
                 <div class="form-group my-3">
-                    <input type="email" id="email" class="sign form-control" value=" <?= $user["email"] ?> ">
+                    <input type="email" id="email" class="sign form-control" value="<?=$user["email"]?>">
                 </div>
             </form>
-            <button class="btn btn-outline-dark mt-4 mb-3">Shrani</button>
+            <button class="btn btn-outline-dark mt-4 mb-3" id="update_user">Shrani</button>
         </div>
 
         <div class="form container px-4 px-lg-5 mt-5">
