@@ -27,7 +27,73 @@ class MainController {
     }
 
     public static function cart() {
-        echo ViewHelper::render("view/cart.php");
+        $method = filter_input(INPUT_SERVER, "REQUEST_METHOD", FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if ($method == "POST") {
+            switch ($_POST["do"]) {
+                case "add_into_cart":
+                    try {
+                        $article = ArticleDB::get(["id" => $_POST["id"]]);
+                        if (isset($_SESSION["cart"][$article["id"]])) {
+                            $_SESSION["cart"][$article["id"]]++;
+                        } else {
+                            $_SESSION["cart"][$article["id"]] = 1;
+                        }
+                    } catch (Exception $ex) {
+                        die($ex->getMessage());
+                    }
+                    break;
+                case "purge_cart":
+                    unset($_SESSION["cart"]);
+                    break;
+                case "update_cart":
+                    $value = $_POST["quantity"];
+                    $article = ArticleDB::get(["id" => $_POST["id"]]);
+
+                    if ($value == 0) {
+                        unset($_SESSION["cart"][$article["id"]]);
+                        if (empty($_SESSION["cart"])) {
+                            unset($_SESSION["cart"]);
+                        }
+                    } else if ($value < 0) {
+                        break;
+                    } else {
+                        $_SESSION["cart"][$article["id"]] = $value;
+                    }
+                    break;
+                case "remove_item":
+                    $article = ArticleDB::get(["id" => $_POST["id"]]);
+                    unset($_SESSION["cart"][$article["id"]]);
+                    if (empty($_SESSION["cart"])) {
+                        unset($_SESSION["cart"]);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        $cart_articles = [];
+        $values = [];
+        $total_price = 0;
+        $isEmpty = true;
+        if (isset($_SESSION["cart"])) {
+            $isEmpty = false;
+            foreach ($_SESSION["cart"] as $id => $value) {
+                $article = ArticleDB::get(["id" => $id]);
+                $cart_articles[$id] = $article;
+                $values[$id] = $value;
+                $total_price += $article["price"] * $value;
+            }
+        } else if (empty($_SESSION["cart"])) {
+            $isEmpty = true;
+        }
+        echo ViewHelper::render("view/cart.php", [
+            "cart_articles" => $cart_articles,
+            "total_price" => $total_price,
+            "values" => $values,
+            "isEmpty" => $isEmpty
+        ]);
     }
 
     public static function checkout() {
@@ -58,14 +124,14 @@ class MainController {
             ];
 
             $data = filter_input_array(INPUT_GET, $rules);
-            
+
             if (!self::checkValues($data)) {
                 throw new InvalidArgumentException();
             }
-            
+
             $article = ArticleDB::get($data);
         }
-        
+
         echo ViewHelper::render("view/edit-article.php", ["article" => $article]);
     }
 
@@ -75,7 +141,7 @@ class MainController {
             'filter' => FILTER_VALIDATE_INT,
             'options' => ['min_range' => 1]
         ];
-        
+
         $data = filter_input_array(INPUT_POST, $rules);
 
         if (self::checkValues($data)) {

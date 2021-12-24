@@ -22,7 +22,7 @@ class ArticleDB extends AbstractDB {
     public static function get(array $id) {
         $articles = parent::query("SELECT id, title, description, price, photo, review"
                         . " FROM article"
-                        . " WHERE id = :id", $id);
+                        . " WHERE id = :id", $id); 
         
         if (count($articles) == 1) {
             return $articles[0];

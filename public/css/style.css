@@ -158,7 +158,7 @@ footer {
 }
 
 .cart-image {
-  width: 150px;
+  width: 80px;
 }
 
 .cart-product-counter {
@@ -167,6 +167,10 @@ footer {
 
 .cart-footer {
   text-align: right;
+}
+
+.cart-prices {
+    text-align: right;
 }
 
 

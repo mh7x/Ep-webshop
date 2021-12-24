@@ -16,36 +16,36 @@ $urls = [
     "product" => function () {
         MainController::product();
     },
-    "checkout" => function() {
+    "checkout" => function () {
         MainController::checkout();
     },
-    "cart" => function() {
+    "cart" => function () {
         MainController::cart();
     },
-    "signin" => function() {
+    "signin" => function () {
         MainController::signin();
     },
-    "signup" => function() {
+    "signup" => function () {
         MainController::signup();
     },
-    "control-panel" => function() {
+    "control-panel" => function () {
         MainController::controlPanel();
     },
-    "product/add" => function() {
-        if  ($_SERVER["REQUEST_METHOD"] == "POST") {
+    "product/add" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::add();
         } else {
             ArticleController::addForm();
         }
     },
-    "product/edit" => function() {
+    "product/edit" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::edit();
         } else {
             ArticleController::editForm();
         }
     },
-    "product/delete" => function() {
+    "product/delete" => function () {
         ArticleController::delete();
     }
 ];

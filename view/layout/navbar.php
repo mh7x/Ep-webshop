@@ -19,7 +19,7 @@ $slug = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
             <a class="btn btn-outline-dark" href="<?= BASE_URL . "cart" ?>" data-toggle="modal" data-target="#exampleModal">
                 <span class="bi-cart-fill"></span>
                 Košarica
-                <span class="badge">0</span>
+                <span class="badge"><?php echo(!empty($_SESSION["cart"])) ? count($_SESSION["cart"]) : "0" ?></span>
             </a>
         </form>
     </div>

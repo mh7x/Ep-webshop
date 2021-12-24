@@ -58,7 +58,11 @@
                             </div>
                         </div>
                         <hr>
-                        <btn class="btn btn-outline-dark my-2" href="#">Add to cart</btn>
+                        <form action="<?= BASE_URL . "cart" ?>" method="POST">
+                            <input type="hidden" name="do" value="add_into_cart" />
+                            <input type="hidden" name="id" value="<?= $article["id"] ?>" />
+                            <button class="btn btn-outline-dark my-2" type="submit">V košarico</button>
+                        </form>
                     </div>
                 </div>
             </section>
