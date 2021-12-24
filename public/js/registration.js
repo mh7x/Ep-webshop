@@ -10,7 +10,7 @@ let captchaCode = "";
 
 function registerUser() {
     let name = $("#name").val();
-    let surnmae = $("#surname").val();
+    let surname = $("#surname").val();
     let email = $("#email").val();
     let password1 = $("#password1").val();
     let password2 = $("#password2").val();
@@ -34,12 +34,23 @@ function registerUser() {
                 "post_number": post_number,
                 "post_city": post_city
             };
+
+            console.log(obj);
             $.ajax({
                 type: "POST",
                 url: baseUrl + "signup",
                 data: obj,
                 success: function (response) {
-                    console.log(response);
+                    $("#name").val("");
+                    $("#surname").val("");
+                    $("#email").val("");
+                    $("#password1").val("");
+                    $("#password2").val("");
+                    $("#captcha_input").val("");
+                    $("#address").val("");
+                    $("#post_number").val("");
+                    $("#post_city").val("");
+                    location.href = baseUrl + "signin";
                 }
             });
         }

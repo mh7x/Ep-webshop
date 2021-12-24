@@ -148,8 +148,39 @@ class MainController {
         ];
 
         $filteredData = filter_input_array(INPUT_POST, $rules);
-        $params = ["name" => $filteredData["name"], "surname" => $filteredData["surname"], "email" => $filteredData["email"], "id" => 1];
+        $params = ["name" => $filteredData["name"], "surname" => $filteredData["surname"], "email" => $filteredData["email"], "id" => $_SESSION["userId"]];
         $user = ArticleDB::updateUser($params);
         return json_encode($user);
+    }
+
+    public static function create_user() {
+        $rules = [
+            "name" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "surname" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "email" => [
+                'filter' => FILTER_VALIDATE_EMAIL
+            ],
+            "address" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "post_number" => [
+                'filter' => FILTER_VALIDATE_INT
+            ],
+            "post_city" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "password" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "status" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $user = ArticleDB::createUser($filteredData);
     }
 }

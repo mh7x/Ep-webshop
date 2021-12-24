@@ -35,7 +35,12 @@ $urls = [
         }
     },
     "signup" => function() {
-        MainController::signup();
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            MainController::signup();
+        }
+        else if($_SERVER["REQUEST_METHOD"] == "POST"){
+            MainController::create_user();
+        }
     },
     "control-panel" => function() {
         MainController::controlPanel();
