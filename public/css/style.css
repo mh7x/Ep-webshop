@@ -81,7 +81,7 @@ footer {
 
 #post_number {
   border: none !important;
-  width: 100px !important;
+  width: 150px !important;
 }
 
 .form-row {
@@ -99,7 +99,7 @@ footer {
 }
 
 .form .btn {
-  width: 100px;
+  width: 150px;
   align-self: center;
 }
 

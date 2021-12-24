@@ -23,24 +23,26 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Informacije o nakupu</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Skupna cena x artiklov: 420,69€</p>
+                    <p class="lead fw-normal text-white-50 mb-0">Skupna cena <?php echo(count($_SESSION["cart"])) ?> artiklov: <?= $total_price ?> €</p>
                 </div>
             </div>
         </header>
 
+        <?= var_dump($_SESSION) ?>
+        <?= var_dump($user) ?>
         <section>
             <div class="form container my-5 py-5">
                 <form>
                     <div class="form-row my-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Ime">
+                            <input type="text" class="form-control" placeholder="Ime" value="<?php echo(($_SESSION["loggedIn"] == true) ? $user["ime"] : '') ?>">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Priimek">
+                            <input type="text" class="form-control" placeholder="Priimek" value="<?php echo(($_SESSION["loggedIn"] == true) ? $user["priimek"] : '') ?>">
                         </div>
                     </div>
                     <div class="form-group my-3">
-                        <input type="email" class="form-control" placeholder="E-pošta">
+                        <input type="email" class="form-control" placeholder="E-pošta" value="<?php echo(($_SESSION["loggedIn"] == true) ? $user["email"] : '') ?>">
                     </div>
                     <div class="form-group my-3">
                         <input type="text" class="form-control" placeholder="Telefonska števila">
@@ -62,11 +64,12 @@
                         Sprejmite pogoje uporabe
                     </label>
                 </form>
-                <button class="btn btn-success mb-4">Oddaj</button>
+                <a class="btn btn-success mb-4" href="<?= BASE_URL . "summary" ?>">Oddaj</a>
+                <!--<button action="" class="btn btn-success mb-4">Oddaj</button>-->
             </div>
         </section>
 
         <?php include("layout/footer.php") ?>
     </body>
-    
+
 </html>

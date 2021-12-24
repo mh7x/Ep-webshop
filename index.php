@@ -26,6 +26,9 @@ $urls = [
     "cart" => function () {
         MainController::cart();
     },
+    "summary" => function () {
+        MainController::summary();
+    },
     "signin" => function() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             MainController::verifySignIn();

@@ -98,7 +98,54 @@ class MainController {
     }
 
     public static function checkout() {
-        echo ViewHelper::render("view/checkout.php");
+        $cart_articles = [];
+        $values = [];
+        $total_price = 0;
+        if (isset($_SESSION["cart"])) {
+            foreach ($_SESSION["cart"] as $id => $value) {
+                $article = ArticleDB::get(["id" => $id]);
+                $cart_articles[$id] = $article;
+                $values[$id] = $value;
+                $total_price += $article["price"] * $value;
+            }
+        }
+
+        $id = $_SESSION["userId"];
+        $params = ["id" => $id];
+        $user = UserDB::getUserById($params);
+
+        echo ViewHelper::render("view/checkout.php", [
+            "cart_articles" => $cart_articles,
+            "total_price" => $total_price,
+            "values" => $values,
+            "user" => $user
+        ]);
+    }
+
+    public static function summary() {
+        if (empty($_SESSION["cart"])) {
+            self::cart();
+            exit;
+        }
+        
+        $cart_articles = [];
+        $values = [];
+        $total_price = 0;
+        if (isset($_SESSION["cart"])) {
+            foreach ($_SESSION["cart"] as $id => $value) {
+                $article = ArticleDB::get(["id" => $id]);
+                $cart_articles[$id] = $article;
+                $values[$id] = $value;
+                $total_price += $article["price"] * $value;
+            }
+        }
+        unset($_SESSION["cart"]);
+
+        echo viewHelper::render("view/summary.php", [
+            "cart_articles" => $cart_articles,
+            "total_price" => $total_price,
+            "values" => $values
+        ]);
     }
 
     public static function signin() {
@@ -154,11 +201,11 @@ class MainController {
     }
 
     /**
-      * Returns TRUE if given $input array contains no FALSE values
-      * @param type $input
-      * @return type
-      */
-      private static function checkValues($input) {
+     * Returns TRUE if given $input array contains no FALSE values
+     * @param type $input
+     * @return type
+     */
+    private static function checkValues($input) {
         if (empty($input)) {
             return FALSE;
         }
@@ -172,10 +219,10 @@ class MainController {
     }
 
     /**
-      * Returns an array of filtering rules for manipulation books
-      * @return type
-      */
-      private static function getRules() {
+     * Returns an array of filtering rules for manipulation books
+     * @return type
+     */
+    private static function getRules() {
         return [
             'title' => FILTER_SANITIZE_SPECIAL_CHARS,
             'description' => FILTER_SANITIZE_SPECIAL_CHARS,
@@ -183,23 +230,8 @@ class MainController {
         ];
     }
 
-    public static function cart() {
-        echo ViewHelper::render("view/cart.php");
-    }
-
-    public static function checkout() {
-        echo ViewHelper::render("view/checkout.php");
-    }
-
-    public static function signin() {
-        echo ViewHelper::render("view/signin.php");
-    }
-
-    public static function signup() {
-        echo ViewHelper::render("view/signup.php");
-    }
     public static function verifySignIn() {
-        
+
         $rules = [
             "email" => [
                 'filter' => FILTER_VALIDATE_EMAIL
@@ -211,20 +243,18 @@ class MainController {
         $filteredData = filter_input_array(INPUT_POST, $rules);
         $params = ["email" => $filteredData["email"]];
         $user = UserDB::getLoginUser($params);
-        if ($user == NULL){
+        if ($user == NULL) {
             $data = ["sporocilo" => "Uporabnik s tem e-naslovom ne obstaja."];
             echo ViewHelper::render("view/signin.php", ["data" => $data]);
-        }
-        else{
-            if (($user["id"] == 1 && $user["geslo"] === $filteredData["passwowd"]) || password_verify($filteredData["password"], $user["geslo"])){
+        } else {
+            if (($user["id"] == 1 && $user["geslo"] === $filteredData["password"]) || password_verify($filteredData["password"], $user["geslo"])) {
                 $_SESSION["loggedIn"] = true;
                 $_SESSION["userId"] = $user["id"];
                 $_SESSION["userEmail"] = $user["email"];
                 echo ViewHelper::redirect(BASE_URL);
-            }
-            else{
+            } else {
                 $data = ["sporocilo" => "Vnesli ste napačno geslo."];
-                echo ViewHelper::render("view/signin.php", ["data" => $data]);        
+                echo ViewHelper::render("view/signin.php", ["data" => $data]);
             }
         }
     }
@@ -314,4 +344,5 @@ class MainController {
         $filteredData["password"] = $hashedPassword;
         $user = UserDB::createUser($filteredData);
     }
+
 }
