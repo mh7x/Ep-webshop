@@ -79,6 +79,11 @@ footer {
   border-bottom: 2px rgb(24, 24, 24) solid !important;
 }
 
+#post_number {
+  border: none !important;
+  width: 100px !important;
+}
+
 .form-row {
   display: flex;
   column-gap: 20px;
