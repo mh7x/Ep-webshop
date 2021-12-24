@@ -96,12 +96,11 @@ class MainController {
             echo ViewHelper::render("view/signin.php", ["data" => $data]);
         }
         else{
-            if ($user["id"] == 1 || password_verify($filteredData["password"], $user["geslo"])){
+            if (($user["id"] == 1 && $user["geslo"] === $filteredData["passwowd"]) || password_verify($filteredData["password"], $user["geslo"])){
                 $_SESSION["loggedIn"] = true;
                 $_SESSION["userId"] = $user["id"];
                 $_SESSION["userEmail"] = $user["email"];
-                $data = ArticleDB::getAll();
-                echo ViewHelper::render("view/index.php", ["articles" => $data]);
+                echo ViewHelper::redirect(BASE_URL);
             }
             else{
                 $data = ["sporocilo" => "Vnesli ste napačno geslo."];
@@ -116,8 +115,10 @@ class MainController {
             session_unset("userId");
             session_unset("userEmail");
         }
-        $data = ArticleDB::getAll();
-        echo ViewHelper::render("view/index.php", ["articles" => $data]);
+
+        #$data = ArticleDB::getAll();
+        #echo ViewHelper::render("view/index.php", ["articles" => $data]);
+        echo ViewHelper::redirect(BASE_URL);
     }
 
     public static function profile() {
