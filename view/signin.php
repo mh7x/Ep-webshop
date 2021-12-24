@@ -31,38 +31,20 @@
         </header>
 
         <div class="form container px-4 px-lg-5 mt-5">
-            <form>
+            <form action="signin" method="POST" id="signin_form">
                 <div class="form-group my-3">
-                    <input type="email" class="sign form-control" placeholder="E-pošta">
+                    <input type="email" name="email" class="sign form-control" placeholder="E-pošta">
                 </div>
                 <div class="form-group my-3">
-                    <input type="password" class="sign form-control" placeholder="Gesol">
+                    <input type="password" name="password" class="sign form-control" placeholder="Geslo">
                 </div>
             </form>
-            <button class="btn btn-outline-dark mt-4 mb-3">Prijava</button>
+            <?php if (isset($data["sporocilo"])){ ?>
+                <p> <?= $data['sporocilo'] ?> </p>
+            <?php } ?>
+            <input type="submit" form="signin_form" class="btn btn-outline-dark mt-4 mb-3" value="Prijava"/>
             <span>Še nisi registriran uporabnik? <a href="<?= BASE_URL . "signup" ?>">Registracija</a></span>
         </div>
-    </header>
-
-    <div class="form container px-4 px-lg-5 mt-5">
-        <form action="signin" method="POST" id="signin_form">
-            <div class="form-group my-3">
-                <input type="email" name="email" class="sign form-control" placeholder="E-pošta">
-            </div>
-            <div class="form-group my-3">
-                <input type="password" name="password" class="sign form-control" placeholder="Geslo">
-            </div>
-        </form>
-        <?php if (isset($data["sporocilo"])){ ?>
-            <p> <?= $data['sporocilo'] ?> </p>
-        <?php } ?>
-        <input type="submit" form="signin_form" class="btn btn-outline-dark mt-4 mb-3" value="Prijava"/>
-        <span>Še nisi registriran uporabnik? <a href="<?= BASE_URL . "signup" ?>">Registracija</a></span>
-    </div>
-
-    <footer class="bg-dark">
-        <p class="footer-text py-3">Made with <span style="color: red">♥</span></p>
-    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
