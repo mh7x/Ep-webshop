@@ -88,19 +88,25 @@ class MainController {
                 'filter' => FILTER_VALIDATE_STRING
             ]
         ];
-
         $filteredData = filter_input_array(INPUT_POST, $rules);
-        $user = ArticleDB::getLoginUser($filteredData);
+        $params = ["email" => $filteredData["email"]];
+        $user = ArticleDB::getLoginUser($params);
         if ($user == NULL){
-            $data = ["sporocilo" => "Nepravilni podatki ob prijavi"];
+            $data = ["sporocilo" => "Uporabnik s tem e-naslovom ne obstaja."];
             echo ViewHelper::render("view/signin.php", ["data" => $data]);
         }
         else{
-            $_SESSION["loggedIn"] = true;
-            $_SESSION["userId"] = $user["id"];
-            $_SESSION["userEmail"] = $user["email"];
-            $data = ArticleDB::getAll();
-            echo ViewHelper::render("view/index.php", ["articles" => $data]);
+            if ($user["id"] == 1 || password_verify($filteredData["password"], $user["geslo"])){
+                $_SESSION["loggedIn"] = true;
+                $_SESSION["userId"] = $user["id"];
+                $_SESSION["userEmail"] = $user["email"];
+                $data = ArticleDB::getAll();
+                echo ViewHelper::render("view/index.php", ["articles" => $data]);
+            }
+            else{
+                $data = ["sporocilo" => "Vnesli ste napačno geslo."];
+                echo ViewHelper::render("view/signin.php", ["data" => $data]);        
+            }
         }
     }
 
@@ -129,7 +135,8 @@ class MainController {
         ];
 
         $filteredData = filter_input_array(INPUT_POST, $rules);
-        $params = ["id" => $_SESSION["userId"], "password" => $filteredData["password"]];
+        $hashedPassword = password_hash($filteredData["password"], PASSWORD_DEFAULT);
+        $params = ["id" => $_SESSION["userId"], "password" => $hashedPassword];
         $user = ArticleDB::changePassword($params);
         return json_encode($user);
     }
@@ -181,6 +188,9 @@ class MainController {
             ]
         ];
         $filteredData = filter_input_array(INPUT_POST, $rules);
+        $password = $filteredData["password"];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $filteredData["password"] = $hashedPassword;
         $user = ArticleDB::createUser($filteredData);
     }
 }

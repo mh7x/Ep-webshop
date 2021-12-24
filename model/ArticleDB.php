@@ -38,7 +38,7 @@ class ArticleDB extends AbstractDB {
     }
 
     public static function getLoginUser(array $params){
-        $user = parent::query("SELECT id, email FROM Oseba WHERE email = :email and geslo = :password", $params);
+        $user = parent::query("SELECT * FROM Oseba WHERE email = :email", $params);
         return $user[0];
     }
 

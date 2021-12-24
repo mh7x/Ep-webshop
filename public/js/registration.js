@@ -23,7 +23,6 @@ function registerUser() {
         // gesli se ujemata
         if (verifyCaptcha(captcha_input)){
             // captcha je pravilna
-
             let obj = {
                 "name": name,
                 "surname": surname,
