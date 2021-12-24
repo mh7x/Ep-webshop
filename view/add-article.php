@@ -19,28 +19,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= BASE_URL . "" ?>">Domov</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . "signin" ?>">Prijava</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nadzorna plošča</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="<?= BASE_URL . "control-panel" ?>">Informacije</a></li>
-                            <li><a class="dropdown-item active" href="<?= BASE_URL . "product/add" ?>">Dodaj artikel</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <a class="btn btn-outline-dark" href="<?= BASE_URL . "cart" ?>" data-toggle="modal" data-target="#exampleModal">
-                        <span class="bi-cart-fill"></span>
-                        Košarica
-                        <span class="badge">0</span>
-                    </a>
-                </form>
-            </div>
-        </nav>
+        <?php include("layout/navbar.php") ?>
 
         <section>
             <div class="container">
@@ -71,13 +50,7 @@
             </div>
         </section>
 
-        <footer class="bg-dark">
-            <p class="footer-text py-3">Made with <span class="text-danger">♥</span></p>
-        </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+        <?php include("layout/footer.php") ?>
     </body>
 
 </html>
