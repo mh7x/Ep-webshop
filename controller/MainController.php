@@ -251,6 +251,7 @@ class MainController {
                 $_SESSION["loggedIn"] = true;
                 $_SESSION["userId"] = $user["id"];
                 $_SESSION["userEmail"] = $user["email"];
+                $_SESSION["userStatus"] = $user["status"];
                 echo ViewHelper::redirect(BASE_URL);
             } else {
                 $data = ["sporocilo" => "Vnesli ste napačno geslo."];
@@ -264,6 +265,7 @@ class MainController {
             $_SESSION["loggedIn"] = false;
             session_unset("userId");
             session_unset("userEmail");
+            session_unset("userStatus");
         }
 
         #$data = ArticleDB::getAll();
