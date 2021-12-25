@@ -158,7 +158,7 @@ class MainController {
         echo ViewHelper::render("view/control-panel-admin.php");
     }
 
-    public static function addSeller() {
+    public static function addSellerView() {
         echo ViewHelper::render("view/add-seller.php");
     }
 

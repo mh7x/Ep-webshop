@@ -53,7 +53,12 @@ $urls = [
         MainController::controlPanelAdmin();
     },
     "add-seller" => function() {
-        MainController::addSeller();
+        if ($_SERVER["REQUEST_METHOD"] == "GET"){
+            MainController::addSellerView();
+        }
+        else if ($_SERVER["REQUEST_METHOD"] == "POST"){
+            UserController::addSeller();
+        }
     },
     "product/add" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

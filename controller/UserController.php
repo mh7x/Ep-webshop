@@ -131,4 +131,39 @@ class UserController {
         $user = UserDB::createUser($filteredData);
     }
 
+    public static function addSeller(){
+        $rules = [
+            "name" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "surname" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "email" => [
+                'filter' => FILTER_VALIDATE_EMAIL
+            ],
+            "password" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $password = $filteredData["password"];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $filteredData["password"] = $hashedPassword;
+        $filteredData["aktiven"] = true;
+        $filteredData["status"] = "prodajalec";
+        
+        $loginParams = ["email" => $filteredData["email"]];
+        $user = UserDB::getLoginUser($loginParams);
+        if ($user != NULL){
+            // uporabnik s tem e-naslovom že obstaja
+            $data = ["sporocilo" => "Uporabnik s tem e-naslovom že obstaja."];
+            echo ViewHelper::render("view/add-seller.php", ["data" => $data]);
+        }
+        else{
+            $seller = UserDB::createSeller($filteredData);
+            $data = ["sporocilo" => "Uspešno ustvarjen prodajalec."];
+            echo ViewHelper::render("view/add-seller.php", ["data" => $data]);
+        }
+    }
 }
