@@ -45,8 +45,8 @@ $urls = [
             MainController::create_user();
         }
     },
-    "control-panel" => function () {
-        MainController::controlPanel();
+    "control-panel-seller" => function () {
+        MainController::controlPanelSeller();
     },
     "product/add" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

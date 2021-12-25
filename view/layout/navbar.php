@@ -15,7 +15,7 @@ $slug = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle <?php echo ($slug == "control-panel" || $slug == "product/add" || $slug == "product/edit") ? "active" : ""; ?>" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nadzorna plošča</a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item <?php echo ($slug == "control-panel") ? "active" : ""; ?>" href="<?= BASE_URL . "control-panel" ?>">Informacije</a></li>
+                    <li><a class="dropdown-item <?php echo ($slug == "control-panel-seller") ? "active" : ""; ?>" href="<?= BASE_URL . "control-panel-seller" ?>">Informacije</a></li>
                     <li><a class="dropdown-item <?php echo ($slug == "product/add") ? "active" : ""; ?>" href="<?= BASE_URL . "product/add" ?>">Dodaj artikel</a></li>
                 </ul>
             </li>

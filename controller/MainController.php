@@ -156,8 +156,8 @@ class MainController {
         echo ViewHelper::render("view/signup.php");
     }
 
-    public static function controlPanel() {
-        echo ViewHelper::render("view/control-panel.php", [
+    public static function controlPanelSeller() {
+        echo ViewHelper::render("view/control-panel-seller.php", [
             "articles" => ArticleDB::getAll()
         ]);
     }
