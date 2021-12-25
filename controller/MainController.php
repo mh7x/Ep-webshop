@@ -154,6 +154,14 @@ class MainController {
         ]);
     }
 
+    public static function controlPanelAdmin() {
+        echo ViewHelper::render("view/control-panel-admin.php");
+    }
+
+    public static function addSeller() {
+        echo ViewHelper::render("view/add-seller.php");
+    }
+
     public static function editFrom($article = []) {
         if (empty($article)) {
             $rules = [

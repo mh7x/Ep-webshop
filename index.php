@@ -49,6 +49,12 @@ $urls = [
     "control-panel-seller" => function () {
         MainController::controlPanelSeller();
     },
+    "control-panel-admin" => function() {
+        MainController::controlPanelAdmin();
+    },
+    "add-seller" => function() {
+        MainController::addSeller();
+    },
     "product/add" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::add();
