@@ -92,9 +92,12 @@ $urls = [
     "seller/edit" => function() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::editSeller();
-        } else {
+        } else if ($_SERVER["REQUEST_METHOD"] == "GET"){
             UserController::editForm();
         }
+    },
+    "seller/delete" => function() {
+        UserController::deleteSeller();
     }
 ];
 

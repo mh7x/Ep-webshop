@@ -68,4 +68,8 @@ class UserDB extends AbstractDB {
         $person = parent::query("UPDATE Oseba SET ime = :name, priimek = :surname, aktiven = :active WHERE id = :id", $params);
         return $person;
     }
+
+    public static function deleteSeller(array $params){
+        return parent::modify("DELETE FROM Oseba WHERE id = :id", $params);
+    }
 }

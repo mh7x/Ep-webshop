@@ -43,11 +43,9 @@
                             <input type="submit" class="btn btn-success mt-2" value="Shrani" />
                         </form>
                         <hr>
-                        <form action="<?= BASE_URL . "seller/delete" ?>" method="post">
+                        <form action="<?= BASE_URL . "seller/delete" ?>" method="DELETE">
                             <input type="hidden" name="id" value="<?= $seller["id"] ?>"  />
-                            <label>Izbris artikla? <input type="checkbox" name="delete_confirmation" /></label>
-                            <br>
-                            <button type="submit" class="btn btn-danger my-2">Izbriši</button>
+                            <input type="submit" class="btn btn-danger my-2" value="Izbriši"/>
                         </form>
                     </div>
                 </div>

@@ -206,4 +206,15 @@ class UserController {
         $user = UserDB::updateSeller($filteredData);
         echo ViewHelper::redirect(BASE_URL . "control-panel-admin");
     }
+
+    public static function deleteSeller() {
+        $rules = [
+            "id" => [
+                'filter' => FILTER_VALIDATE_INT
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_GET, $rules);
+        $success = UserDB::deleteSeller($filteredData);
+        echo ViewHelper::redirect(BASE_URL . "control-panel-admin");
+    }
 }
