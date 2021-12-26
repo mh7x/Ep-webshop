@@ -88,6 +88,13 @@ $urls = [
     },
     "product/delete" => function () {
         ArticleController::delete();
+    },
+    "seller/edit" => function() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UserController::editSeller();
+        } else {
+            UserController::editForm();
+        }
     }
 ];
 

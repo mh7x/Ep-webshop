@@ -155,7 +155,8 @@ class MainController {
     }
 
     public static function controlPanelAdmin() {
-        echo ViewHelper::render("view/control-panel-admin.php");
+        $sellers = UserDB::getAllSellers();
+        echo ViewHelper::render("view/control-panel-admin.php", ["sellers" => $sellers]);
     }
 
     public static function addSellerView() {

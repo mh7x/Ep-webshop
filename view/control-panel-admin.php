@@ -28,27 +28,16 @@
                     <h4>Vsi prodajalci</h4>
                 </div>
                 <div class="cart-body list-group">
-                    <?php foreach ($articles as $article): ?>
+                    <?php foreach ($sellers as $seller): ?>
                         <div class="list-group-item px-2 py-4 d-flex justify-content-between align-items-center">
-                            <div class="mb-0 d-flex align-items-center">
-                                <img class="cp-image" src="../public/assets/<?= $article["photo"] ?>">
-                                <h4 class="cart-product-name mb-0"><a href="<?= BASE_URL . "product?id=" . $article["id"] ?>"><?= $article["title"] ?></a></h4>
+                            <div class="mb-0 mx-5 d-flex align-items-center">
+                            <h4 class="cart-product-name mb-0"><a href="<?= BASE_URL . "product?id=" . $seller["id"] ?>"><?= $seller["id"] ?></a></h4>
                             </div>
                             <div class="mb-0 mx-5 d-flex align-items-center">
-                                <h5 class="mb-0 mx-3"><?= $article["price"] ?>€</h5>
-                                <div class="card-stars">
-                                    <div class="text-dark mx-2">Ocena uporabnikov: </div>
-                                    <?php
-                                    $empty = 5 - $article["review"];
-                                    for ($i = 0; $i < $article["review"]; $i++) {
-                                        echo '<div class="bi-star-fill"></div>';
-                                    }
-                                    for ($i = 0; $i < $empty; $i++) {
-                                        echo '<div class="bi-star"></div>';
-                                    }
-                                    ?>
-                                </div>
-                                <a class="btn btn-warning mx-3" href="<?= BASE_URL . "product/edit?id=" . $article["id"] ?>">Uredi</a>
+                                <h5 class="mb-0 mx-5"><?= $seller["ime"] . " " . $seller["priimek"] ?></h5>
+                                <h6 class="mb-0 mx-2"><?= $seller["email"] ?></h6>
+                                <h6 class="mb-0 mx-2"><?= $seller["aktiven"] == 1 ? "Aktiven" : "Neaktiven" ?></h6>
+                                <a class="btn btn-warning mx-3" href="<?= BASE_URL . "seller/edit?id=" . $seller["id"] ?>">Uredi</a>
                             </div>
                         </div>
                     <?php endforeach ?>

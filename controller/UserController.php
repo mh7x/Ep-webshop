@@ -166,4 +166,44 @@ class UserController {
             echo ViewHelper::render("view/add-seller.php", ["data" => $data]);
         }
     }
+
+    public static function editForm(){
+        $rules = [
+            "id" => [
+                "filter" => FITLER_VALIDATE_INT,
+                "options" => ["min_range" => 1]
+            ]
+        ];
+
+        $data = filter_input_array(INPUT_GET, $rules);
+
+        $seller = UserDB::getUserById($data);
+        echo ViewHelper::render("view/edit-seller.php", ["seller" => $seller]);
+    }
+
+    public static function editSeller() {
+        $rules = [
+            "id" => [
+                'filter' => FILTER_VALIDATE_INT
+            ],
+            "name" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "surname" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "active" => [
+                'filter' => FILTER_REQUIRE_SCALAR
+            ]
+        ];
+
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $active = 1;
+        if ($filteredData["active"] == NULL) {
+            $active = 0;
+        }
+        $filteredData["active"] = $active;
+        $user = UserDB::updateSeller($filteredData);
+        echo ViewHelper::redirect(BASE_URL . "control-panel-admin");
+    }
 }
