@@ -52,4 +52,24 @@ class UserDB extends AbstractDB {
         $ret = ["id" => $person["id"], "email" => $person["email"]];
         return $ret;
     }
+
+    public static function createSeller(array $params){
+        $person_params = ["name" => $params["name"], "surname" => $params["surname"], "email" => $params["email"], "password" => $params["password"], "status" => $params["status"], "active" => true];
+        $person = parent::query("INSERT INTO Oseba (ime, priimek, email, geslo, aktiven, status) VALUES (:name, :surname, :email, :password, :active, :status)", $person_params);
+        return $person;
+    }
+
+    public static function getAllSellers(){
+        $params = ["status" => "prodajalec"];
+        return parent::query("SELECT * FROM Oseba WHERE status = :status", $params);
+    }
+
+    public static function updateSeller(array $params){
+        $person = parent::query("UPDATE Oseba SET ime = :name, priimek = :surname, aktiven = :active WHERE id = :id", $params);
+        return $person;
+    }
+
+    public static function deleteSeller(array $params){
+        return parent::modify("DELETE FROM Oseba WHERE id = :id", $params);
+    }
 }

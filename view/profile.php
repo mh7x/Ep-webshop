@@ -17,7 +17,7 @@
     </head>
 
     <body>
-    <?php include("layout/navbar.php") ?>
+        <?php include("layout/navbar.php") ?>
 
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
