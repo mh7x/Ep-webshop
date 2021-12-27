@@ -32,11 +32,19 @@ class UserController {
             echo ViewHelper::render("view/signin.php", ["data" => $data]);
         } else {
             if (($user["id"] == 1 && $user["geslo"] === $filteredData["password"]) || password_verify($filteredData["password"], $user["geslo"])) {
-                $_SESSION["loggedIn"] = true;
-                $_SESSION["userId"] = $user["id"];
-                $_SESSION["userEmail"] = $user["email"];
-                $_SESSION["userStatus"] = $user["status"];
-                echo ViewHelper::redirect(BASE_URL);
+                // preverimo če je user aktiven
+                if ($user["aktiven"] == true){
+                    $_SESSION["loggedIn"] = true;
+                    $_SESSION["userId"] = $user["id"];
+                    $_SESSION["userEmail"] = $user["email"];
+                    $_SESSION["userStatus"] = $user["status"];
+                    echo ViewHelper::redirect(BASE_URL);
+                }
+                else{
+                    $data = ["sporocilo" => "Ta uporabnik je začasno deaktiviran."];
+                    echo ViewHelper::render("view/signin.php", ["data" => $data]);
+                }
+
             } else {
                 $data = ["sporocilo" => "Vnesli ste napačno geslo."];
                 echo ViewHelper::render("view/signin.php", ["data" => $data]);
