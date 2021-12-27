@@ -53,6 +53,66 @@
                         </div>
                     <?php endforeach ?>
                 </div>
+                <div class="row mt-5 text-center">
+                    <h4>Neobdelana naročila</h4>    
+                </div>
+                <div class="cart-body list-group">
+                    <?php
+                    foreach ($orders as $order):
+                        if ($order["status"] == "V obdelavi") {
+                            ?>
+
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex flex-column">
+                                    <h6 class="cart-product-name mb-0">Id: #<?= $order["id"] ?></a></h6>
+                                    <h6 class="cart-product-name mb-0">Stranka: 
+                                        <?php
+                                        $stranka = UserDB::getUserById(["id" => $order["stranka"]]);
+                                        echo $stranka["ime"] . " " . $stranka["priimek"]
+                                        ?>
+                                    </h6>
+                                </div>
+                                <div class="">
+
+                                </div>
+                                <div class="d-flex">
+                                    <h6 class="mb-0 align-self-center">Status: <?= $order["status"] ?></h6>
+                                    <i class="mx-4 align-self-center"><?= $order["date"] ?></i>
+                                    <a class="btn btn-warning mx-4" href="<?= BASE_URL . "order-edit?id=" . $order["id"] ?>">Uredi</a>
+                                    <a class="btn btn-success" href="<?= BASE_URL . "order-details?id=" . $order["id"] ?>">Preglej</a>
+
+                                </div>
+                            </div>
+                        <?php } endforeach ?>
+                </div>
+                <div class="row mt-5 text-center">
+                    <h4>Vsa naročila</h4>    
+                </div>
+                <div class="cart-body list-group">
+                    <?php foreach ($orders as $order): ?>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="d-flex flex-column">
+                                <h6 class="cart-product-name mb-0">Id: #<?= $order["id"] ?></a></h6>
+                                <h6 class="cart-product-name mb-0">Stranka: 
+                                    <?php
+                                    $stranka = UserDB::getUserById(["id" => $order["stranka"]]);
+                                    echo $stranka["ime"] . " " . $stranka["priimek"]
+                                    ?>
+                                </h6>
+                            </div>
+                            <div class="">
+
+                            </div>
+                            <div class="d-flex">
+                                <h6 class="mb-0 align-self-center">Status: <?= $order["status"] ?></h6>
+                                <i class="mx-4 align-self-center"><?= $order["date"] ?></i>
+                                <a <?= ($order["status"] == "Stornirano" || $order["status"] == "Preklicano") ? "style='display: none;'" : "" ?>class="btn btn-warning mx-4" href="<?= BASE_URL . "order-edit?id=" . $order["id"] ?>">Uredi</a>
+                                <a class="btn btn-success" href="<?= BASE_URL . "order-details?id=" . $order["id"] ?>">Preglej</a>
+
+                            </div>
+                        </div>
+                    <?php endforeach ?>
+                </div>
             </div>
         </section>
 

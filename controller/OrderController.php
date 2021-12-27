@@ -89,16 +89,24 @@ class OrderController {
             }
         }
 
-        $id = $_SESSION["userId"];
-        $params = ["id" => $id];
-        $user = UserDB::getUserById($params);
+        if ($_SESSION["loggedIn"] == true) {
+            $id = $_SESSION["userId"];
+            $params = ["id" => $id];
+            $user = UserDB::getUserById($params);
 
-        echo ViewHelper::render("view/checkout.php", [
-            "cart_articles" => $cart_articles,
-            "total_price" => $total_price,
-            "values" => $values,
-            "user" => $user
-        ]);
+            echo ViewHelper::render("view/checkout.php", [
+                "cart_articles" => $cart_articles,
+                "total_price" => $total_price,
+                "values" => $values,
+                "user" => $user
+            ]);
+        } else {
+            echo ViewHelper::render("view/checkout.php", [
+                "cart_articles" => $cart_articles,
+                "total_price" => $total_price,
+                "values" => $values
+            ]);
+        }
     }
 
     public static function summary() {
@@ -141,7 +149,7 @@ class OrderController {
         $items = OrderDB::getItems(["id" => $orderId["MAX(ID)"]]);
         unset($_SESSION["cart"]);
 
-        echo ViewHelper::render("view/summary.php",[
+        echo ViewHelper::render("view/summary.php", [
             "total_price" => $total_price,
             "items" => $items,
             "order" => $order,
@@ -150,12 +158,61 @@ class OrderController {
     }
 
     public static function add(array $data) {
+        $date = date('m/d/Y h:i:s a', time());
         if (self::checkValues($data)) {
             OrderDB::insert([
                 "stranka" => $_SESSION["userId"],
                 "status" => "V obdelavi",
-                "date" => "zdaj"
+                "date" => $date
             ]);
+        }
+    }
+
+    public static function order_details() {
+        $rules = [
+            "id" => [
+                'filter' => FILTER_VALIDATE_INT,
+                'options' => ['min_range' => 1]
+            ]
+        ];
+
+        $data = filter_input_array(INPUT_GET, $rules);
+
+        echo ViewHelper::render("view/order-details.php", [
+            "order" => OrderDB::get($data)
+        ]);
+    }
+
+    public static function order_edit($order = []) {
+        if (empty($order)) {
+            $rules = [
+                "id" => [
+                    "filter" => FILTER_VALIDATE_INT,
+                    "options" => ["min_range" => 1]
+                ]
+            ];
+
+            $data = filter_input_array(INPUT_GET, $rules);
+
+            if (!self::checkValues($data)) {
+                throw new InvalidArgumentException();
+            }
+
+            $order = OrderDB::get($data);
+        }
+        
+        echo ViewHelper::render("view/order-edit.php", ["order" => $order]);
+    }
+    
+    public static function edit_status() {
+        $status = $_POST["status"];
+        $id = $_POST["id"];
+        
+        if(self::checkValues($status)) {
+            OrderDB::updateStatus(["status" => $status, "id" => $id]);
+            ViewHelper::redirect(BASE_URL . "order-details?id=" . $id);
+        } else {
+            self::order_edit($status);
         }
     }
 
@@ -183,9 +240,7 @@ class OrderController {
      */
     private static function getRules() {
         return [
-            'title' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'description' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'price' => FILTER_VALIDATE_FLOAT,
+            'status' => FILTER_SANITIZE_SPECIAL_CHARS,
         ];
     }
 

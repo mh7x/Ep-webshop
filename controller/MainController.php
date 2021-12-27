@@ -36,6 +36,13 @@ class MainController {
         $sellers = UserDB::getAllSellers();
         echo ViewHelper::render("view/control-panel-admin.php", ["sellers" => $sellers]);
     }
+    
+    public static function controlPanelSeller() {
+        echo ViewHelper::render("view/control-panel-seller.php", [
+            "articles" => ArticleDB::getAll(),
+            "orders" => OrderDB::getAll()
+        ]);
+    }
 
     public static function addSellerView() {
         echo ViewHelper::render("view/add-seller.php");

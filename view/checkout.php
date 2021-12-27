@@ -29,7 +29,6 @@
         </header>
 
         <?= var_dump($_SESSION) ?>
-        <?= var_dump($user) ?>
         <section>
             <div class="form container my-5 py-5">
                 <form action="<?= BASE_URL . "summary" ?>" method="post" >

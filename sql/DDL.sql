@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `order` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `stranka` INT NOT NULL,
     `status` TEXT NOT NULL,
-    `date` TEXT  NOT NULL,
+    `date` TEXT NOT NULL,
     FOREIGN KEY (`stranka`) REFERENCES `Oseba`(id)
 );
 
