@@ -7,11 +7,11 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 require_once ("controller/MainController.php");
 require_once ("controller/ArticleController.php");
+require_once ("controller/OrderController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
-
 
 $urls = [
     "" => function () {
@@ -21,27 +21,29 @@ $urls = [
         MainController::product();
     },
     "checkout" => function () {
-        MainController::checkout();
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            OrderController::add();
+        } else {
+            OrderController::checkout();
+        }
     },
     "cart" => function () {
-        MainController::cart();
+        OrderController::cart();
     },
     "summary" => function () {
-        MainController::summary();
+        OrderController::summary();
     },
-    "signin" => function() {
+    "signin" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             MainController::verifySignIn();
-        }
-        else if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        } else if ($_SERVER["REQUEST_METHOD"] == "GET") {
             MainController::signin();
         }
     },
-    "signup" => function() {
+    "signup" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             MainController::signup();
-        }
-        else if($_SERVER["REQUEST_METHOD"] == "POST"){
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             MainController::create_user();
         }
     },
@@ -55,19 +57,19 @@ $urls = [
             ArticleController::addForm();
         }
     },
-    "profile" => function() {
+    "profile" => function () {
         MainController::profile();
     },
-    "logout" => function() {
+    "logout" => function () {
         MainController::logout();
     },
-    "change_password" => function() {
+    "change_password" => function () {
         MainController::change_password();
     },
-    "update_user" => function() {
+    "update_user" => function () {
         MainController::update_user();
     },
-    "product/edit" => function() {
+    "product/edit" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::edit();
         } else {

@@ -33,8 +33,10 @@
                     <h3>Naročilo je bilo sprejeto!</h3>
                     <p>Naročeni artikli bodo posredovani dostavljalcu v najkrajšem možnem času.</p>
                     <hr>
-                    <h4 class="mt-5">Povzetek naročila:</h4>
-                    <?php foreach ($cart_articles as $article): ?>
+                    <h4 class="mt-5">Povzetek naročila</h4>
+                    <h6>Številka naročila: <?= $id ?></h6>
+                    <?php foreach ($items as $item) {
+                        $article = ArticleDB::get(["id" => $item["article"]]) ?>
                         <div class = "cart-body list-group">
                             <div class = "list-group-item px-2 py-4 d-flex justify-content-between align-items-center">
                                 <div class = "mb-0 d-flex align-items-center">
@@ -44,16 +46,17 @@
                                 <div class = "mb-0 mx-2 d-flex align-items-center">
                                     <div class="cart-prices">
                                         <h6 class = "mb-2 mx-3">Cena enote: <?= $article["price"] ?> €</h6>
-                                        <h6 class="mb-2 mx-3">Število enot: <?= $values[$article["id"]] ?> </h6>
-                                        <h4 class="mb-0 mx-3">Cena: <?= $article["price"] * $values[$article["id"]] ?> €</h4>
+                                        <h6 class="mb-2 mx-3">Število enot: <?= $item["quantity"] ?> </h6>
+                                        <h4 class="mb-0 mx-3">Cena: <?= $article["price"] * $item["quantity"] ?> €</h4>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+                    <?php }; ?>
                     <div class = "cart-footer m-3">
                         <h4 class = "cart-price">Skupna cena z DDV: <?= $total_price ?> €</h4>
                     </div>
+                    <a class="btn btn-outline-dark" href="<?= BASE_URL ?>">Nazaj na prvo stran</a>
                 </div>
             </div>
 
