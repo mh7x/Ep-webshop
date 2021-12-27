@@ -45,8 +45,19 @@
                 <div class="form-group my-3">
                     <input type="email" id="email" class="sign form-control" value="<?=$user["email"]?>">
                 </div>
+                <?php if ($user["status"] === "stranka") {?>
+                <div class="form-group my-3">
+                    <input type="text" id="address" class="sign form-control" value="<?=$user["naslov"]?>">
+                </div>  
+                <div class="form-group my-3">
+                    <input type="number" id="post_number" class="sign form-control" value="<?=$user["posta"]?>">
+                </div>
+                <div class="form-group my-3">
+                    <input type="email" id="city" class="sign form-control" value="<?=$user["kraj"]?>">
+                </div>             
+                <?php } ?>
             </form>
-            <button class="btn btn-outline-dark mt-4 mb-3" id="update_user">Shrani</button>
+            <button class="btn btn-outline-dark mt-4 mb-3" id="<?= $user["status"] === "stranka" ? "update_customer" : "update_user" ?>">Shrani</button>
         </div>
 
         <div class="form container px-4 px-lg-5 mt-5">

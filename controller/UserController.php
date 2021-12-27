@@ -60,7 +60,11 @@ class UserController {
     public static function profile() {
         $id = $_SESSION["userId"];
         $params = ["id" => $id];
-        $user = UserDB::getUserById($params);
+        if($_SESSION["userStatus"] === "stranka"){
+            $user = UserDB::getCustomerById($params);
+        }else{
+            $user = UserDB::getUserById($params);
+        }
         echo ViewHelper::render("view/profile.php", ["user" => $user]);
     }
 
@@ -95,6 +99,24 @@ class UserController {
         $params = ["name" => $filteredData["name"], "surname" => $filteredData["surname"], "email" => $filteredData["email"], "id" => $_SESSION["userId"]];
         $user = UserDB::updateUser($params);
         return json_encode($user);
+    }
+
+    public static function update_customer() {
+        $rules = [
+            "address" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "post_number" => [
+                'filter' => FILTER_VALIDATE_INT
+            ],
+            "city" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $params = ["address" => $filteredData["address"], "post_number" => $filteredData["post_number"], "city" => $filteredData["city"], "id" => $_SESSION["userId"]];
+        $customer = UserDB::updateCustomer($params);
+        return $customer;
     }
 
     public static function create_user() {

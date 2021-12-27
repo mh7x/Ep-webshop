@@ -79,6 +79,9 @@ $urls = [
     "update_user" => function() {
         UserController::update_user();
     },
+    "update_customer" => function() {
+        UserController::update_customer();
+    },
     "product/edit" => function() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::edit();

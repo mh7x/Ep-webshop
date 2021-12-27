@@ -33,8 +33,6 @@ function registerUser() {
                 "post_number": post_number,
                 "post_city": post_city
             };
-
-            console.log(obj);
             $.ajax({
                 type: "POST",
                 url: baseUrl + "signup",
