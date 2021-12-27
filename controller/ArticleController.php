@@ -76,7 +76,7 @@ class ArticleController {
         
         if (self::checkValues($data)) {
             ArticleDB::delete($data);
-            $url = BASE_URL . "control-panel";
+            $url = BASE_URL . "control-panel-seller";
         } else {
             if (isset($data["id"])) {
                 $url = BASE_URL . "product/edit?id=" . $data["id"];
