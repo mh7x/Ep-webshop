@@ -77,6 +77,10 @@ class OrderController {
     }
 
     public static function checkout() {
+        if ($_SESSION["loggedIn"] == false) {
+            echo viewHelper::redirect(BASE_URL . "signin");
+        }
+
         $cart_articles = [];
         $values = [];
         $total_price = 0;
@@ -89,27 +93,24 @@ class OrderController {
             }
         }
 
-        if ($_SESSION["loggedIn"] == true) {
-            $id = $_SESSION["userId"];
-            $params = ["id" => $id];
-            $user = UserDB::getUserById($params);
+        $id = $_SESSION["userId"];
+        $params = ["id" => $id];
+        $user = UserDB::getUserById($params);
+        $customer = UserDB::getCustomerById($params);
 
-            echo ViewHelper::render("view/checkout.php", [
-                "cart_articles" => $cart_articles,
-                "total_price" => $total_price,
-                "values" => $values,
-                "user" => $user
-            ]);
-        } else {
-            echo ViewHelper::render("view/checkout.php", [
-                "cart_articles" => $cart_articles,
-                "total_price" => $total_price,
-                "values" => $values
-            ]);
-        }
+        echo ViewHelper::render("view/checkout.php", [
+            "cart_articles" => $cart_articles,
+            "total_price" => $total_price,
+            "values" => $values,
+            "user" => $user,
+            "customer" => $customer
+        ]);
     }
 
     public static function summary() {
+        if ($_SESSION["loggedIn"] == false) {
+            echo viewHelper::redirect(BASE_URL . "signin");
+        }
         if (empty($_SESSION["cart"])) {
             self::cart();
             exit;
@@ -184,6 +185,10 @@ class OrderController {
     }
 
     public static function order_edit($order = []) {
+        if ($_SESSION["userStatus"] == "prodajalec") {
+            echo viewHelper::redirect(BASE_URL);
+        }
+
         if (empty($order)) {
             $rules = [
                 "id" => [
@@ -200,15 +205,19 @@ class OrderController {
 
             $order = OrderDB::get($data);
         }
-        
+
         echo ViewHelper::render("view/order-edit.php", ["order" => $order]);
     }
-    
+
     public static function edit_status() {
+        if ($_SESSION["userStatus"] == "prodajalec") {
+            echo viewHelper::redirect(BASE_URL);
+        }
+
         $status = $_POST["status"];
         $id = $_POST["id"];
-        
-        if(self::checkValues($status)) {
+
+        if (self::checkValues($status)) {
             OrderDB::updateStatus(["status" => $status, "id" => $id]);
             ViewHelper::redirect(BASE_URL . "order-details?id=" . $id);
         } else {

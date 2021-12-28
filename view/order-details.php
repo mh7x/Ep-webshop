@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     <?php }; ?>
-                    <a class="btn btn-outline-dark" href="<?= BASE_URL . "control-panel-seller" ?>">Nazaj</a>
+                    <a class="btn btn-outline-dark" href="<?php echo ($_SESSION["userStatus"] == "prodajalec") ? (BASE_URL . "control-panel-seller") : (BASE_URL . "my-orders") ?>">Nazaj</a>
                 </div>
             </div>
 

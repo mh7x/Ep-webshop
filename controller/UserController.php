@@ -66,6 +66,10 @@ class UserController {
     }
 
     public static function profile() {
+        if ($_SESSION["loggedIn"] == false) {
+            echo ViewHelper::redirect(BASE_URL);
+        }
+        
         $id = $_SESSION["userId"];
         $params = ["id" => $id];
         if($_SESSION["userStatus"] === "stranka"){
