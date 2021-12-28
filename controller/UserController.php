@@ -32,11 +32,19 @@ class UserController {
             echo ViewHelper::render("view/signin.php", ["data" => $data]);
         } else {
             if (($user["id"] == 1 && $user["geslo"] === $filteredData["password"]) || password_verify($filteredData["password"], $user["geslo"])) {
-                $_SESSION["loggedIn"] = true;
-                $_SESSION["userId"] = $user["id"];
-                $_SESSION["userEmail"] = $user["email"];
-                $_SESSION["userStatus"] = $user["status"];
-                echo ViewHelper::redirect(BASE_URL);
+                // preverimo če je user aktiven
+                if ($user["aktiven"] == true){
+                    $_SESSION["loggedIn"] = true;
+                    $_SESSION["userId"] = $user["id"];
+                    $_SESSION["userEmail"] = $user["email"];
+                    $_SESSION["userStatus"] = $user["status"];
+                    echo ViewHelper::redirect(BASE_URL);
+                }
+                else{
+                    $data = ["sporocilo" => "Ta uporabnik je začasno deaktiviran."];
+                    echo ViewHelper::render("view/signin.php", ["data" => $data]);
+                }
+
             } else {
                 $data = ["sporocilo" => "Vnesli ste napačno geslo."];
                 echo ViewHelper::render("view/signin.php", ["data" => $data]);
@@ -60,7 +68,11 @@ class UserController {
     public static function profile() {
         $id = $_SESSION["userId"];
         $params = ["id" => $id];
-        $user = UserDB::getUserById($params);
+        if($_SESSION["userStatus"] === "stranka"){
+            $user = UserDB::getCustomerById($params);
+        }else{
+            $user = UserDB::getUserById($params);
+        }
         echo ViewHelper::render("view/profile.php", ["user" => $user]);
     }
 
@@ -95,6 +107,24 @@ class UserController {
         $params = ["name" => $filteredData["name"], "surname" => $filteredData["surname"], "email" => $filteredData["email"], "id" => $_SESSION["userId"]];
         $user = UserDB::updateUser($params);
         return json_encode($user);
+    }
+
+    public static function update_customer() {
+        $rules = [
+            "address" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "post_number" => [
+                'filter' => FILTER_VALIDATE_INT
+            ],
+            "city" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $params = ["address" => $filteredData["address"], "post_number" => $filteredData["post_number"], "city" => $filteredData["city"], "id" => $_SESSION["userId"]];
+        $customer = UserDB::updateCustomer($params);
+        return $customer;
     }
 
     public static function create_user() {

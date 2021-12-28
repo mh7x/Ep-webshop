@@ -51,7 +51,34 @@ function updateUser(){
     });
 }
 
+function updateCustomer(){
+    // posodobimo osebo
+    updateUser();
+
+    // zdaj pa še stranko
+    let address = $("#address").val();
+    let post_number = $("#post_number").val();
+    let city = $("#city").val();
+
+    let obj = {
+        "address": address,
+        "post_number": post_number,
+        "city": city
+    };
+
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "update_customer",
+        data: obj,
+        success: function (response) {
+            console.log(response);
+            location.reload();
+        }
+    });
+}
+
 $(document).ready(function () {
     $("#change_password").click(changePassword);
     $("#update_user").click(updateUser);
+    $("#update_customer").click(updateCustomer);
 });
