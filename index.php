@@ -112,6 +112,9 @@ $urls = [
     },
     "seller/delete" => function () {
         UserController::deleteSeller();
+    },
+    "my-orders" => function () {
+        MainController::myOrdersPage();
     }
 ];
 
