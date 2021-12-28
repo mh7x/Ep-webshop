@@ -86,6 +86,49 @@ class MainController {
         }
     }
 
+    public static function myOrdersPage() {
+        $orders = [
+            [
+                "id" => 1,
+                "orderPrice" => 1000,
+                "date" => "1.12.2021",
+                "status" => "V obdelavi",
+                "items" => [
+                    [
+                        "name" => "Miza",
+                        "quantity" => 2,
+                        "price" => 400
+                    ],
+                    [
+                        "name" => "Stolec",
+                        "quantity" => 1,
+                        "price" => 600
+                    ]
+                ]
+            ],
+            [
+                "id" => 4,
+                "orderPrice" => 900,
+                "date" => "1.11.2021",
+                "status" => "Potrjeno",
+                "items" => [
+                    [
+                        "name" => "Stolec",
+                        "quantity" => 1,
+                        "price" => 600
+                    ],
+                    [
+                        "name" => "Postelja",
+                        "quantity" => 3,
+                        "price" => 300
+                    ]
+                ]
+            ]
+
+        ];
+        echo ViewHelper::render("view/my-orders.php", ["orders" => $orders]);
+    }
+
     /**
      * Returns TRUE if given $input array contains no FALSE values
      * @param type $input

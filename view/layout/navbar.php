@@ -11,6 +11,10 @@ $slug = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
             <?php } else {?>
                 <li class="nav-item"><a class="nav-link <?php echo ($slug == "signin") ? "active" : ""; ?>" href="<?= BASE_URL . "signin" ?>">Prijava</a></li>
             <?php }?>
+
+            <?php if (isset( $_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == true && $_SESSION["userStatus"] === "stranka") { ?>
+                <li class="nav-item"><a class="nav-link <?php echo ($slug == "my-orders") ? "active" : ""; ?>" href="<?= BASE_URL . "my-orders" ?>">Moja naročila</a></li>
+            <?php } ?>
             
             <?php if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == true && $_SESSION["userStatus"] == "admin") { ?>
                 <li class="nav-item dropdown">
