@@ -100,6 +100,11 @@ $urls = [
     "product/delete" => function () {
         ArticleController::delete();
     },
+    "product/rate" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            ArticleController::rate();
+        }
+    },
     "seller/edit" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::editSeller();

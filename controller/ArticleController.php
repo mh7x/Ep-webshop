@@ -33,20 +33,20 @@ class ArticleController {
                     "options" => ["min_range" => 1]
                 ]
             ];
-            
+
             $data = filter_input_array(INPUT_GET, $rules);
-            
+
             if (!self::checkValues($data)) {
                 throw new InvalidArgumentException();
             }
-            
+
             $article = ArticleDB::get($data);
         }
 
 
         echo ViewHelper::render("view/edit-article.php", ["article" => $article]);
     }
-    
+
     public static function edit() {
         $rules = self::getRules();
         $rules["id"] = [
@@ -55,15 +55,14 @@ class ArticleController {
         ];
         $data = filter_input_array(INPUT_POST, $rules);
 
-        if(self::checkValues($data)) {
+        if (self::checkValues($data)) {
             ArticleDB::update($data);
             ViewHelper::redirect(BASE_URL . "product?id=" . $data["id"]);
         } else {
             self::editForm($data);
         }
-        
     }
-    
+
     public static function delete() {
         $rules = [
             "delete_confirmation" => FILTER_REQUIRE_SCALAR,
@@ -73,7 +72,7 @@ class ArticleController {
             ]
         ];
         $data = filter_input_array(INPUT_POST, $rules);
-        
+
         if (self::checkValues($data)) {
             ArticleDB::delete($data);
             $url = BASE_URL . "control-panel-seller";
@@ -86,6 +85,15 @@ class ArticleController {
         }
 
         ViewHelper::redirect($url);
+    }
+
+    public static function rate() {
+        var_dump($_POST);
+        ArticleDB::rate([
+            "sumReview" => $_POST["rating"],
+            "id" => $_POST["id"]
+        ]);
+        echo ViewHelper::redirect(BASE_URL . "product?id=" . $_POST["id"]);
     }
 
     /**

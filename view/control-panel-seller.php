@@ -61,7 +61,6 @@
                     foreach ($orders as $order):
                         if ($order["status"] == "V obdelavi") {
                             ?>
-
                             <div class="list-group-item d-flex justify-content-between align-items-center">
                                 <div class="d-flex flex-column">
                                     <h6 class="cart-product-name mb-0">Id: #<?= $order["id"] ?></a></h6>

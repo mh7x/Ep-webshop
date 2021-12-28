@@ -5,8 +5,8 @@ require_once 'model/AbstractDB.php';
 class ArticleDB extends AbstractDB {
 
     public static function insert(array $params) {
-        return parent::modify("INSERT INTO article (title, description, price, photo, review) "
-                        . " VALUES (:title, :description, :price, 'stolec.jpg', 0)", $params);
+        return parent::modify("INSERT INTO article (title, description, price, photo, review, sumReview, numReview) "
+                        . " VALUES (:title, :description, :price, 'stolec.jpg', 0, 0, 0)", $params);
     }
 
     public static function update(array $params) {
@@ -20,7 +20,7 @@ class ArticleDB extends AbstractDB {
     }
 
     public static function get(array $id) {
-        $articles = parent::query("SELECT id, title, description, price, photo, review"
+        $articles = parent::query("SELECT id, title, description, price, photo, review, sumReview, numReview"
                         . " FROM article"
                         . " WHERE id = :id", $id); 
         
@@ -32,8 +32,12 @@ class ArticleDB extends AbstractDB {
     }
 
     public static function getAll() {
-        return parent::query("SELECT id, title, description, price, photo, review"
+        return parent::query("SELECT id, title, description, price, photo, review, sumReview, numReview"
                         . " FROM article"
                         . " ORDER BY id ASC");
+    }
+    
+    public static function rate(array $params) {
+        return parent::modify("UPDATE article SET sumReview = sumReview + :sumReview, numReview = numReview + 1, review = sumReview / numReview WHERE id = :id", $params);      
     }
 }

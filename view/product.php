@@ -43,7 +43,7 @@
                         <p class="pt-4"><?= $article["description"] ?>
                         </p>
                         <h5 class="my-3"><?= $article["price"] ?>€</h5>
-                        <div class="product-rating mb-4">
+                        <div class="product-rating align-items-center">
                             <span>Ocena: </span>
                             <div class="product-stars mx-2">
                                 <?php
@@ -56,6 +56,14 @@
                                 }
                                 ?>
                             </div>
+                            <italic class="small">(Št. ocen: <?= $article["numReview"] ?>)</italic>
+                        </div>
+                        <div class="align-items-center mt-2 d-inline-flex">
+                            <form action="<?= BASE_URL . "product/rate" ?>" method="POST">
+                                <input type="hidden" name="id"value="<?= $article["id"] ?>">
+                                <input type="number" name="rating" class="form-control" min="1" max="5" value="5">
+                                <button class="btn btn-outline-dark mt-2" type="submit">Dodaj oceno</button>
+                            </form>
                         </div>
                         <hr>
                         <form action="<?= BASE_URL . "cart" ?>" method="POST">
