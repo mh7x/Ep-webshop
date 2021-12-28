@@ -42,15 +42,12 @@ class UserDB extends AbstractDB {
         $person_params = ["name" => $params["name"], "surname" => $params["surname"], "email" => $params["email"], "password" => $params["password"], "status" => $params["status"], "active" => true];
         $person = parent::query("INSERT INTO Oseba (ime, priimek, email, geslo, aktiven, status) VALUES (:name, :surname, :email, :password, :active, :status)", $person_params);
         $person = parent::query("SELECT * FROM Oseba WHERE email = :email", ["email" => $person_params["email"]]);
+        
         // zdaj pa še stranko
-        var_dump($person);
-        var_dump($post);
         $user_params = ["person_id" => $person[0]["id"], "address" => $params["address"], "post_number" => $post[0]["stevilka"]];
-        var_dump($user_params);
-        $user = parent::query("INSERT INTO Stranka(id_osebe, naslov, posta) VALUES(:person_id, :address, :post_number)", $user_params);
 
+        $user = parent::query("INSERT INTO Stranka(id_osebe, naslov, posta) VALUES(:person_id, :address, :post_number)", $user_params);
         $ret = ["id" => $person["id"], "email" => $person["email"]];
-        return $ret;
     }
 
     public static function createSeller(array $params){
@@ -71,5 +68,25 @@ class UserDB extends AbstractDB {
 
     public static function deleteSeller(array $params){
         return parent::modify("DELETE FROM Oseba WHERE id = :id", $params);
+    }
+
+    public static function getCustomerById(array $params){
+        $customer = parent::query("SELECT * FROM Oseba o JOIN Stranka s ON o.id = s.id_osebe JOIN Posta p ON s.posta = p.stevilka WHERE o.status = 'stranka' and o.id = :id", $params);
+        return $customer[0];
+    }
+
+    public static function updateCustomer(array $params){
+        // pogledamo, če pošta že obstaja
+        $post_params = ["post_number" => $params["post_number"]];
+        $post = parent::query("SELECT * FROM Posta WHERE stevilka = :post_number", $post_params);
+        if (count($post) == 0){
+            // pošta še ne obstaja
+            $post_params = ["post_number" => $params["post_number"], "post_city" => $params["city"]];
+            parent::modify("INSERT INTO Posta(stevilka, kraj) VALUES(:post_number, :post_city)", $post_params);
+            $post = parent::query("SELECT * FROM Posta WHERE stevilka = :post_number", ["post_number" => $params["post_number"]]);
+        }
+
+        $customerParams = ["post_number" => $params["post_number"], "address" => $params["address"], "id" => $params["id"]];
+        $customer = parent::query("UPDATE Stranka SET naslov = :address, posta = :post_number WHERE id_osebe = :id", $customerParams);
     }
 }
