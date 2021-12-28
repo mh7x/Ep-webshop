@@ -2,6 +2,7 @@
 
 require_once("model/ArticleDB.php");
 require_once("model/UserDB.php");
+require_once("model/OrderDB.php");
 require_once("ViewHelper.php");
 
 class MainController {
@@ -27,136 +28,20 @@ class MainController {
         ]);
     }
 
-    public static function cart() {
-        $method = filter_input(INPUT_SERVER, "REQUEST_METHOD", FILTER_SANITIZE_SPECIAL_CHARS);
-
-        if ($method == "POST") {
-            switch ($_POST["do"]) {
-                case "add_into_cart":
-                    try {
-                        $article = ArticleDB::get(["id" => $_POST["id"]]);
-                        if (isset($_SESSION["cart"][$article["id"]])) {
-                            $_SESSION["cart"][$article["id"]]++;
-                        } else {
-                            $_SESSION["cart"][$article["id"]] = 1;
-                        }
-                    } catch (Exception $ex) {
-                        die($ex->getMessage());
-                    }
-                    break;
-                case "purge_cart":
-                    unset($_SESSION["cart"]);
-                    break;
-                case "update_cart":
-                    $value = $_POST["quantity"];
-                    $article = ArticleDB::get(["id" => $_POST["id"]]);
-
-                    if ($value == 0) {
-                        unset($_SESSION["cart"][$article["id"]]);
-                        if (empty($_SESSION["cart"])) {
-                            unset($_SESSION["cart"]);
-                        }
-                    } else if ($value < 0) {
-                        break;
-                    } else {
-                        $_SESSION["cart"][$article["id"]] = $value;
-                    }
-                    break;
-                case "remove_item":
-                    $article = ArticleDB::get(["id" => $_POST["id"]]);
-                    unset($_SESSION["cart"][$article["id"]]);
-                    if (empty($_SESSION["cart"])) {
-                        unset($_SESSION["cart"]);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        $cart_articles = [];
-        $values = [];
-        $total_price = 0;
-        $isEmpty = true;
-        if (isset($_SESSION["cart"])) {
-            $isEmpty = false;
-            foreach ($_SESSION["cart"] as $id => $value) {
-                $article = ArticleDB::get(["id" => $id]);
-                $cart_articles[$id] = $article;
-                $values[$id] = $value;
-                $total_price += $article["price"] * $value;
-            }
-        } else if (empty($_SESSION["cart"])) {
-            $isEmpty = true;
-        }
-        echo ViewHelper::render("view/cart.php", [
-            "cart_articles" => $cart_articles,
-            "total_price" => $total_price,
-            "values" => $values,
-            "isEmpty" => $isEmpty
-        ]);
-    }
-
-    public static function checkout() {
-        $cart_articles = [];
-        $values = [];
-        $total_price = 0;
-        if (isset($_SESSION["cart"])) {
-            foreach ($_SESSION["cart"] as $id => $value) {
-                $article = ArticleDB::get(["id" => $id]);
-                $cart_articles[$id] = $article;
-                $values[$id] = $value;
-                $total_price += $article["price"] * $value;
-            }
-        }
-
-        $id = $_SESSION["userId"];
-        $params = ["id" => $id];
-        $user = UserDB::getUserById($params);
-
-        echo ViewHelper::render("view/checkout.php", [
-            "cart_articles" => $cart_articles,
-            "total_price" => $total_price,
-            "values" => $values,
-            "user" => $user
-        ]);
-    }
-
-    public static function summary() {
-        if (empty($_SESSION["cart"])) {
-            self::cart();
-            exit;
-        }
-        
-        $cart_articles = [];
-        $values = [];
-        $total_price = 0;
-        if (isset($_SESSION["cart"])) {
-            foreach ($_SESSION["cart"] as $id => $value) {
-                $article = ArticleDB::get(["id" => $id]);
-                $cart_articles[$id] = $article;
-                $values[$id] = $value;
-                $total_price += $article["price"] * $value;
-            }
-        }
-        unset($_SESSION["cart"]);
-
-        echo viewHelper::render("view/summary.php", [
-            "cart_articles" => $cart_articles,
-            "total_price" => $total_price,
-            "values" => $values
-        ]);
-    }
-
-    public static function controlPanelSeller() {
-        echo ViewHelper::render("view/control-panel-seller.php", [
-            "articles" => ArticleDB::getAll()
-        ]);
+    public static function signin() {
+        echo ViewHelper::render("view/signin.php");
     }
 
     public static function controlPanelAdmin() {
         $sellers = UserDB::getAllSellers();
         echo ViewHelper::render("view/control-panel-admin.php", ["sellers" => $sellers]);
+    }
+    
+    public static function controlPanelSeller() {
+        echo ViewHelper::render("view/control-panel-seller.php", [
+            "articles" => ArticleDB::getAll(),
+            "orders" => OrderDB::getAll()
+        ]);
     }
 
     public static function addSellerView() {

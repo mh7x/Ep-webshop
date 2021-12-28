@@ -19,25 +19,22 @@
     <body>
         <?php include("layout/navbar.php") ?>
 
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Povzetek naročila</h1>
-                </div>
-            </div>
-        </header>
-
         <section>
             <div class="container">
                 <div class="text-center mt-4">
-                    <h3>Naročilo je bilo sprejeto!</h3>
-                    <p>Naročeni artikli bodo posredovani dostavljalcu v najkrajšem možnem času.</p>
+                    <h3 class="mt-5">Povzetek naročila</h3>
+                    <h6>Številka naročila: <?= $order["id"] ?></h6>
                     <hr>
-                    <h4 class="mt-5">Povzetek naročila</h4>
-                    <h6>Številka naročila: <?= $id ?></h6>
-                    <?php foreach ($items as $item) {
-                        $article = ArticleDB::get(["id" => $item["article"]]) ?>
-                        <div class = "cart-body list-group">
+                    <?php $stranka = UserDB::getUserById(["id" => $order["stranka"]]) ?>
+                    <h4>Stranka: <?= $stranka["ime"] . " " . $stranka["priimek"] ?></h4>
+                    <h5><?= $order["status"] ?></h5>
+                    <i><?= $order["date"] ?></i>
+                    <?php
+                    $items = OrderDB::getItems(["id" => $order["id"]]);
+                    foreach ($items as $item) {
+                        $article = ArticleDB::get(["id" => $item["article"]])
+                        ?>
+                        <div class = "cart-body list-group my-3">
                             <div class = "list-group-item px-2 py-4 d-flex justify-content-between align-items-center">
                                 <div class = "mb-0 d-flex align-items-center">
                                     <img class = "cart-image" src = "../public/assets/<?= $article["photo"] ?>">
@@ -53,10 +50,7 @@
                             </div>
                         </div>
                     <?php }; ?>
-                    <div class = "cart-footer m-3">
-                        <h4 class = "cart-price">Skupna cena z DDV: <?= $total_price ?> €</h4>
-                    </div>
-                    <a class="btn btn-outline-dark" href="<?= BASE_URL ?>">Nazaj na prvo stran</a>
+                    <a class="btn btn-outline-dark" href="<?= BASE_URL . "control-panel-seller" ?>">Nazaj</a>
                 </div>
             </div>
 

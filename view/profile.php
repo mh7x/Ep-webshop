@@ -24,7 +24,7 @@
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder"> <?= $user["ime"] . " " . $user["priimek"] ?> </h1>
                     <p class="lead fw-normal text-white-50 mb-0"><?php if($user["status"] == "admin") echo "Administrator";
-                    else if ($user["status"] == "stranka") echo "Stranka"; 
+                    else if($user["status"] == "stranka") echo "Stranka"; 
                     else if($user["status"] == "prodajalec") echo "Prodajalec"; ?>
                     </p>
                 </div>

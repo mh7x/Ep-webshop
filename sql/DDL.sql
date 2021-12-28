@@ -26,11 +26,12 @@ CREATE TABLE IF NOT EXISTS Stranka (
     FOREIGN KEY (posta) REFERENCES Posta(stevilka)
 );
 
-CREATE TABLE IF NOT EXISTS Narocilo (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    stranka INT NOT NULL,
-    status TEXT NOT NULL,
-    FOREIGN KEY (stranka) REFERENCES Oseba(id)
+CREATE TABLE IF NOT EXISTS `order` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `stranka` INT NOT NULL,
+    `status` TEXT NOT NULL,
+    `date` TEXT NOT NULL,
+    FOREIGN KEY (`stranka`) REFERENCES `Oseba`(id)
 );
 
 CREATE TABLE IF NOT EXISTS `article` (
@@ -42,13 +43,13 @@ CREATE TABLE IF NOT EXISTS `article` (
     `review` INT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Postavka (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS `order_item` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
     `article` INT NOT NULL,
-    kolicina INT NOT NULL,
-    cena INT NOT NULL,
-    narocilo INT NOT NULL,
-    FOREIGN KEY (narocilo) REFERENCES Narocilo(id),
+    `quantity` INT NOT NULL,
+    `price` INT NOT NULL,
+    `order` INT NOT NULL,
+    FOREIGN KEY (`order`) REFERENCES `order`(id),
     FOREIGN KEY (`article`) REFERENCES `article`(id)
 );
 

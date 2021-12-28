@@ -7,12 +7,12 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 require_once ("controller/MainController.php");
 require_once ("controller/ArticleController.php");
+require_once ("controller/OrderController.php");
 require_once ("controller/UserController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
-
 
 $urls = [
     "" => function () {
@@ -22,41 +22,52 @@ $urls = [
         MainController::product();
     },
     "checkout" => function () {
-        MainController::checkout();
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            OrderController::add();
+        } else {
+            OrderController::checkout();
+        }
     },
     "cart" => function () {
-        MainController::cart();
+        OrderController::cart();
     },
     "summary" => function () {
-        MainController::summary();
+        OrderController::summary();
     },
-    "signin" => function() {
+    "order-details" => function () {
+        OrderController::order_details();
+    },
+    "order-edit" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            OrderController::edit_status();
+        } else {
+            OrderController::order_edit();
+        }
+    },
+    "signin" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::verifySignIn();
-        }
-        else if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        } else if ($_SERVER["REQUEST_METHOD"] == "GET") {
             UserController::signin();
         }
     },
-    "signup" => function() {
+    "signup" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             UserController::signup();
-        }
-        else if($_SERVER["REQUEST_METHOD"] == "POST"){
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::create_user();
         }
     },
     "control-panel-seller" => function () {
         MainController::controlPanelSeller();
     },
-    "control-panel-admin" => function() {
+    "control-panel-admin" => function () {
         MainController::controlPanelAdmin();
     },
-    "add-seller" => function() {
-        if ($_SERVER["REQUEST_METHOD"] == "GET"){
+    "add-seller" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
             MainController::addSellerView();
-        }
-        else if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::addSeller();
         }
     },
@@ -67,22 +78,22 @@ $urls = [
             ArticleController::addForm();
         }
     },
-    "profile" => function() {
+    "profile" => function () {
         UserController::profile();
     },
-    "logout" => function() {
+    "logout" => function () {
         UserController::logout();
     },
-    "change_password" => function() {
+    "change_password" => function () {
         UserController::change_password();
     },
-    "update_user" => function() {
+    "update_user" => function () {
         UserController::update_user();
     },
     "update_customer" => function() {
         UserController::update_customer();
     },
-    "product/edit" => function() {
+    "product/edit" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::edit();
         } else {
@@ -92,14 +103,14 @@ $urls = [
     "product/delete" => function () {
         ArticleController::delete();
     },
-    "seller/edit" => function() {
+    "seller/edit" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::editSeller();
-        } else if ($_SERVER["REQUEST_METHOD"] == "GET"){
+        } else if ($_SERVER["REQUEST_METHOD"] == "GET") {
             UserController::editForm();
         }
     },
-    "seller/delete" => function() {
+    "seller/delete" => function () {
         UserController::deleteSeller();
     }
 ];

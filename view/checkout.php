@@ -29,10 +29,9 @@
         </header>
 
         <?= var_dump($_SESSION) ?>
-        <?= var_dump($user) ?>
         <section>
             <div class="form container my-5 py-5">
-                <form>
+                <form action="<?= BASE_URL . "summary" ?>" method="post" >
                     <div class="form-row my-3">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Ime" value="<?php echo(($_SESSION["loggedIn"] == true) ? $user["ime"] : '') ?>">
@@ -63,9 +62,9 @@
                     <label class="form-check-label" for="terms">
                         Sprejmite pogoje uporabe
                     </label>
+                    <br>
+                    <button class="btn btn-success mb-4">Oddaj naročilo</button>
                 </form>
-                <a class="btn btn-success mb-4" href="<?= BASE_URL . "summary" ?>">Oddaj</a>
-                <!--<button action="" class="btn btn-success mb-4">Oddaj</button>-->
             </div>
         </section>
 
