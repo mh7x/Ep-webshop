@@ -55,9 +55,12 @@ class UserController {
     public static function logout() {
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == true) {
             $_SESSION["loggedIn"] = false;
-            session_unset("userId");
-            session_unset("userEmail");
-            session_unset("userStatus");
+            #session_unset("userId");
+            #session_unset("userEmail");
+            #session_unset("userStatus");
+            $_SESSION["userId"] = "";
+            $_SESSION["userEmail"] = "";
+            $_SESSION["userStatus"] = "";
         }
 
         #$data = ArticleDB::getAll();
