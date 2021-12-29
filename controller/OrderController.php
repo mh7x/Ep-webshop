@@ -185,7 +185,7 @@ class OrderController {
     }
 
     public static function order_edit($order = []) {
-        if ($_SESSION["userStatus"] == "prodajalec") {
+        if ($_SESSION["userStatus"] !== "prodajalec") {
             echo viewHelper::redirect(BASE_URL);
         }
 

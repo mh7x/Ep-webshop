@@ -75,12 +75,14 @@ class UserController {
         
         $id = $_SESSION["userId"];
         $params = ["id" => $id];
+        $user = [];
         if($_SESSION["userStatus"] === "stranka"){
             $user = UserDB::getCustomerById($params);
         }else{
             $user = UserDB::getUserById($params);
         }
-        echo ViewHelper::render("view/profile.php", ["user" => $user]);
+        $data = ["user" => $user];
+        echo ViewHelper::render("view/profile.php", $data);
     }
 
     public static function change_password() {
