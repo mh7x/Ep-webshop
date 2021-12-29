@@ -33,101 +33,91 @@ class MainController {
     }
 
     public static function controlPanelAdmin() {
-        $sellers = UserDB::getAllSellers();
-        echo ViewHelper::render("view/control-panel-admin.php", ["sellers" => $sellers]);
+        if ($_SESSION["userStatus"] == "admin") {
+            $sellers = UserDB::getAllSellers();
+            echo ViewHelper::render("view/control-panel-admin.php", ["sellers" => $sellers]);
+        } else {
+            echo ViewHelper::redirect(BASE_URL);
+        }
     }
-    
+
     public static function controlPanelSeller() {
-        echo ViewHelper::render("view/control-panel-seller.php", [
-            "articles" => ArticleDB::getAll(),
-            "orders" => OrderDB::getAll(),
-            "customers" => UserDB::getAllCustomers()
-        ]);
+        if ($_SESSION["userStatus"] == "prodajalec") {
+            echo ViewHelper::render("view/control-panel-seller.php", [
+                "articles" => ArticleDB::getAll(),
+                "orders" => OrderDB::getAll(),
+                "customers" => UserDB::getAllCustomers()
+            ]);
+        } else {
+            echo ViewHelper::redirect(BASE_URL);
+        }
     }
 
     public static function addSellerView() {
-        echo ViewHelper::render("view/add-seller.php");
+        if ($_SESSION["userStatus"] == "admin") {
+            echo ViewHelper::render("view/add-seller.php");
+        } else {
+            echo ViewHelper::redirect(BASE_URL);
+        }
     }
 
     public static function editFrom($article = []) {
-        if (empty($article)) {
-            $rules = [
-                "id" => [
-                    "filter" => FITLER_VALIDATE_INT,
-                    "options" => ["min_range" => 1]
-                ]
-            ];
+        if ($_SESSION["userStatus"] == "prodajalec") {
+            if (empty($article)) {
+                $rules = [
+                    "id" => [
+                        "filter" => FITLER_VALIDATE_INT,
+                        "options" => ["min_range" => 1]
+                    ]
+                ];
 
-            $data = filter_input_array(INPUT_GET, $rules);
+                $data = filter_input_array(INPUT_GET, $rules);
 
-            if (!self::checkValues($data)) {
-                throw new InvalidArgumentException();
+                if (!self::checkValues($data)) {
+                    throw new InvalidArgumentException();
+                }
+
+                $article = ArticleDB::get($data);
             }
 
-            $article = ArticleDB::get($data);
+            echo ViewHelper::render("view/edit-article.php", ["article" => $article]);
+        } else {
+            echo ViewHelper::redirect(BASE_URL);
         }
-
-        echo ViewHelper::render("view/edit-article.php", ["article" => $article]);
     }
 
     public static function edit() {
-        $rules = self::getRules();
-        $rules["id"] = [
-            'filter' => FILTER_VALIDATE_INT,
-            'options' => ['min_range' => 1]
-        ];
+        if ($_SESSION["userStatus"] == "prodajalec") {
+            $rules = self::getRules();
+            $rules["id"] = [
+                'filter' => FILTER_VALIDATE_INT,
+                'options' => ['min_range' => 1]
+            ];
 
-        $data = filter_input_array(INPUT_POST, $rules);
+            $data = filter_input_array(INPUT_POST, $rules);
 
-        if (self::checkValues($data)) {
-            ArticleDB::update($data);
-            ViewHelper::redirect(BASE_URL . "product?id=" . $data["id"]);
+            if (self::checkValues($data)) {
+                ArticleDB::update($data);
+                ViewHelper::redirect(BASE_URL . "product?id=" . $data["id"]);
+            } else {
+                self::editForm($data);
+            }
         } else {
-            self::editForm($data);
+            echo ViewHelper::redirect(BASE_URL);
         }
     }
 
     public static function myOrdersPage() {
-        $orders = [
-            [
-                "id" => 1,
-                "orderPrice" => 1000,
-                "date" => "1.12.2021",
-                "status" => "V obdelavi",
-                "items" => [
-                    [
-                        "name" => "Miza",
-                        "quantity" => 2,
-                        "price" => 400
-                    ],
-                    [
-                        "name" => "Stolec",
-                        "quantity" => 1,
-                        "price" => 600
-                    ]
-                ]
-            ],
-            [
-                "id" => 4,
-                "orderPrice" => 900,
-                "date" => "1.11.2021",
-                "status" => "Potrjeno",
-                "items" => [
-                    [
-                        "name" => "Stolec",
-                        "quantity" => 1,
-                        "price" => 600
-                    ],
-                    [
-                        "name" => "Postelja",
-                        "quantity" => 3,
-                        "price" => 300
-                    ]
-                ]
-            ]
+        if ($_SESSION["userStatus"] == "stranka") {
 
-        ];
-        echo ViewHelper::render("view/my-orders.php", ["orders" => $orders]);
+            $orders = OrderDB::getUserOrders(["id" => $_SESSION["userId"]]);
+
+            echo ViewHelper::render("view/my-orders.php", [
+                "orders" => $orders
+            ]);
+        } else {
+            ViewHelper::redirect(BASE_URL);
+        }
     }
 
     /**
@@ -159,4 +149,5 @@ class MainController {
             'price' => FILTER_VALIDATE_FLOAT,
         ];
     }
+
 }

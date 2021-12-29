@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <?php include("layout/navbar.php"); var_dump($_SESSION);?>
+        <?php include("layout/navbar.php"); ?>
 
 
         <header class="bg-dark py-5">

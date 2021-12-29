@@ -32,6 +32,10 @@ class OrderDB extends AbstractDB {
         }
     }
     
+    public static function getUserOrders(array $id) {
+        return parent::query("SELECT id, stranka, status, date FROM `order` WHERE stranka = :id", $id);
+    }
+    
     public static function getLastId() {
         return parent::query("SELECT MAX(ID) FROM `order`");
     }

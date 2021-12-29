@@ -29,31 +29,32 @@
         </header>
 
         <div class="container">
-            <div class="cart-body list-group">
-                <?php foreach ($orders as $order): ?>
-                    <div class="list-group-item px-10 py-4 d-flex justify-content-between align-items-center">
-                        <div class="mb-0 d-flex align-items-center">
-                            <h4 class="cart-product-name mb-0">#<?= $order["id"]?> naročilo</h4>
+            <div class="cart-body list-group my-5">
+                <?php
+                if ($orders == null) { ?>
+                    <h3>Ni naročil!</h3>
+                <?php } else { ?>
+                    <h3>Naročila:</h3>
+                    <?php foreach ($orders as $order):
+                    ?>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <h6 class="cart-product-name mb-0">Id: #<?= $order["id"] ?></a></h6>
+                            </h6>
                         </div>
-                        <div class="mb-0 mx-5 d-flex align-items-center">
-                            <h5 class="mb-0 mx-3">Skupna cena: <?= $order["orderPrice"]?>€</h5>
+                        <div class="">
+
                         </div>
-                        <div class="mb-0 mx-5 d-flex align-items-center">
-                            <h5 class="mb-0 mx-3">Datum: <?= $order["date"]?></h5>
-                            <h5 class="mb-0 mx-3">Status: <?= $order["status"]?></h5>
-                        </div>
-                        <div class="mb-0 mx-5 d-flex align-items-center">
-                            <details>
-                                <summary>Artikli</summary>
-                                <ul>
-                                    <?php foreach($order["items"] as $item): ?>
-                                        <li>Naziv: <?= $item["name"] ?>, Količina: <?= $item["quantity"] ?>, cena: <?= $item["price"]?></li>
-                                    <?php endforeach ?>
-                                </ul>
-                            </details>
+                        <div class="d-flex">
+                            <h6 class="mb-0 align-self-center">Status: <?= $order["status"] ?></h6>
+                            <i class="mx-4 align-self-center"><?= $order["date"] ?></i>
+                            <a class="btn btn-success" href="<?= BASE_URL . "order-details?id=" . $order["id"] ?>">Preglej</a>
                         </div>
                     </div>
-                <?php endforeach ?>
+                    <?php
+                    endforeach;
+                }
+                ?>
             </div>
         </div>
 
