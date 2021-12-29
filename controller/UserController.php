@@ -262,6 +262,51 @@ class UserController {
         echo ViewHelper::render("view/edit-customer.php", ["customer" => $customer]);
     }
 
+    public static function addCustomerView() {
+        echo ViewHelper::render("view/add-customer.php");
+    }
+
+    public static function addCustomer() {
+        $rules = [
+            "name" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "surname" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "email" => [
+                'filter' => FILTER_VALIDATE_EMAIL
+            ],
+            "address" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "post_number" => [
+                'filter' => FILTER_VALIDATE_INT
+            ],
+            "post_city" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "password" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $filteredData["status"] = "stranka";
+
+        $user = UserDB::getLoginUser(["email" => $filteredData["email"]]);
+        if ($user != NULL){
+            $data = ["sporocilo" => "Uporabnik s tem e-naslovom že obstaja."];
+            echo ViewHelper::render("view/add-customer.php", ["data" => $data]);
+            return;
+        }
+
+        $password = $filteredData["password"];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $filteredData["password"] = $hashedPassword;
+        $user = UserDB::createUser($filteredData);
+        echo ViewHelper::redirect("control-panel-seller");
+    }
+
     public static function editCustomer() {
         $rules = [
             "id" => [

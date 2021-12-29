@@ -104,6 +104,13 @@ $urls = [
     "customer-delete" => function() {
         UserController::deleteCustomer();
     },
+    "add-customer" => function() {
+        if ($_SERVER["REQUEST_METHOD"] === "GET"){
+            UserController::addCustomerView();
+        }else{
+            UserController::addCustomer();
+        }
+    },
     "product/edit" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::edit();
