@@ -112,6 +112,25 @@
                         </div>
                     <?php endforeach ?>
                 </div>
+
+                <div class="row mt-5 text-center">
+                    <h4>Stranke</h4>
+                </div>
+                <div class="cart-body list-group">
+                    <?php foreach ($customers as $customer): ?>
+                        <div class="list-group-item px-2 py-4 d-flex justify-content-between align-items-center">
+                            <div class="mb-0 mx-5 d-flex align-items-center">
+                                <h4 class="mx-5"><?= $customer["id"] ?></h4>
+                                <h5 class="mx-2"><?= $customer["ime"] ?></h5>
+                                <h5><?= $customer["priimek"] ?></h5>
+                            </div>
+                            <div class="mb-0 mx-5 d-flex align-items-center">
+                                <h5 class="mb-0 mx-3"><?= $customer["email"] ?></h5>
+                                <a class="btn btn-warning mx-3" href="<?= BASE_URL . "customer-edit?id=" . $customer["id"] ?>">Uredi</a>
+                            </div>
+                        </div>
+                    <?php endforeach ?>
+                </div>
             </div>
         </section>
 

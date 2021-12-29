@@ -30,6 +30,7 @@ $slug = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item <?php echo ($slug == "control-panel-seller") ? "active" : ""; ?>" href="<?= BASE_URL . "control-panel-seller" ?>">Informacije</a></li>
                         <li><a class="dropdown-item <?php echo ($slug == "product/add") ? "active" : ""; ?>" href="<?= BASE_URL . "product/add" ?>">Dodaj artikel</a></li>
+                        <li><a class="dropdown-item <?php echo ($slug == "add-customer") ? "active" : ""; ?>" href="<?= BASE_URL . "add-customer" ?>">Dodaj stranko</a></li>
                     </ul>
                 </li>            
             <?php } ?>

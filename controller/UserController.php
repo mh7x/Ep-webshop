@@ -55,9 +55,12 @@ class UserController {
     public static function logout() {
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == true) {
             $_SESSION["loggedIn"] = false;
-            session_unset("userId");
-            session_unset("userEmail");
-            session_unset("userStatus");
+            #session_unset("userId");
+            #session_unset("userEmail");
+            #session_unset("userStatus");
+            $_SESSION["userId"] = "";
+            $_SESSION["userEmail"] = "";
+            $_SESSION["userStatus"] = "";
         }
 
         #$data = ArticleDB::getAll();
@@ -247,8 +250,110 @@ class UserController {
                 'filter' => FILTER_VALIDATE_INT
             ]
         ];
-        $filteredData = filter_input_array(INPUT_GET, $rules);
+        $filteredData = filter_input_array(INPUT_POST, $rules);
         $success = UserDB::deleteSeller($filteredData);
         echo ViewHelper::redirect(BASE_URL . "control-panel-admin");
+    }
+
+    public static function editCustomerView() {
+        $rules = [
+            "id" => [
+                'filter' => FILTER_VALIDATE_INT
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_GET, $rules);
+        $customer = UserDB::getCustomerById($filteredData);
+        echo ViewHelper::render("view/edit-customer.php", ["customer" => $customer]);
+    }
+
+    public static function addCustomerView() {
+        echo ViewHelper::render("view/add-customer.php");
+    }
+
+    public static function addCustomer() {
+        $rules = [
+            "name" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "surname" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "email" => [
+                'filter' => FILTER_VALIDATE_EMAIL
+            ],
+            "address" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "post_number" => [
+                'filter' => FILTER_VALIDATE_INT
+            ],
+            "post_city" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "password" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $filteredData["status"] = "stranka";
+
+        $user = UserDB::getLoginUser(["email" => $filteredData["email"]]);
+        if ($user != NULL){
+            $data = ["sporocilo" => "Uporabnik s tem e-naslovom že obstaja."];
+            echo ViewHelper::render("view/add-customer.php", ["data" => $data]);
+            return;
+        }
+
+        $password = $filteredData["password"];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $filteredData["password"] = $hashedPassword;
+        $user = UserDB::createUser($filteredData);
+        echo ViewHelper::redirect("control-panel-seller");
+    }
+
+    public static function editCustomer() {
+        $rules = [
+            "id" => [
+                'filter' => FILTER_VALIDATE_INT
+            ],
+            "name" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "surname" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "email" => [
+                'filter' => FILTER_VALIDATE_EMAIL
+            ],
+            "address" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "post_number" => [
+                'filter' => FILTER_VALIDATE_INT
+            ],
+            "city" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ]
+        ];
+
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $params = ["name" => $filteredData["name"], "surname" => $filteredData["surname"], "email" => $filteredData["email"], "id" => $filteredData["id"]];
+        $user = UserDB::updateUser($params);
+
+        $params = ["address" => $filteredData["address"], "post_number" => $filteredData["post_number"], "city" => $filteredData["city"], "id" => $filteredData["id"]];
+        $customer = UserDB::updateCustomer($params);
+
+        echo ViewHelper::redirect("control-panel-seller");
+    }
+
+    public static function deleteCustomer() {
+        $rules = [
+            "id" => [
+                'filter' => FILTER_VALIDATE_INT
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $success = UserDB::deleteCustomer($filteredData);
+        echo ViewHelper::redirect("control-panel-seller");
     }
 }

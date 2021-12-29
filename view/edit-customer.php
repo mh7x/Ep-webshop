@@ -15,7 +15,7 @@
 
 
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <title>Urejanje prodajalca</title>
+        <title>Urejanje stranke</title>
     </head>
 
     <body>
@@ -24,27 +24,39 @@
         <section>
             <div class="container">
                 <div class="row mt-5 text-center">
-                    <h3>Uredi prodajalca: <?= $seller["id"] ?></h3>
+                    <h3>Uredi stanko: <?= $customer["id"] ?></h3>
                     <div class="form container mt-3">
-                        <form action="<?= BASE_URL . 'seller/edit' ?>" method="post">
-                            <input type="hidden" name="id" value="<?= $seller["id"] ?>"/>
+                        <form action="<?= BASE_URL . 'customer-edit' ?>" method="post">
+                            <input type="hidden" name="id" value="<?= $customer["id"] ?>"/>
                             <div class="form-group my-3">
                                 <label for="name">Ime</label>
-                                <input type="text" name="name" value="<?= $seller["ime"] ?>" class="form-control">
+                                <input type="text" name="name" value="<?= $customer["ime"] ?>" class="form-control">
                             </div>
                             <div class="form-group my-3">
                                 <label for="surname">Priimek</label>
-                                <input type="text" name="surname" value="<?= $seller["priimek"] ?>" class="form-control">
+                                <input type="text" name="surname" value="<?= $customer["priimek"] ?>" class="form-control">
                             </div>
                             <div class="form-group my-3">
-                                <label for="surname">Aktiven</label>
-                                <input type="checkbox" name="active" <?= $seller["aktiven"] == 1 ? "checked" : "" ?> />
+                                <label for="surname">Email</label>
+                                <input type="text" name="email" value="<?= $customer["email"] ?>" class="form-control">
+                            </div>
+                            <div class="form-group my-3">
+                                <label for="surname">Naslov</label>
+                                <input type="text" name="address" value="<?= $customer["naslov"] ?>" class="form-control">
+                            </div>
+                            <div class="form-group my-3">
+                                <label for="surname">Poštna številka</label>
+                                <input type="number" min="1000" max="9999" name="post_number" value="<?= $customer["stevilka"] ?>" class="form-control">
+                            </div>
+                            <div class="form-group my-3">
+                                <label for="surname">Kraj</label>
+                                <input type="text" name="city" value="<?= $customer["kraj"] ?>" class="form-control">
                             </div>
                             <input type="submit" class="btn btn-success mt-2" value="Shrani" />
                         </form>
                         <hr>
-                        <form action="<?= BASE_URL . "seller/delete" ?>" method="POST">
-                            <input type="hidden" name="id" value="<?= $seller["id"] ?>"  />
+                        <form action="<?= BASE_URL . "customer-delete" ?>" method="POST">
+                            <input type="hidden" name="id" value="<?= $customer["id"] ?>"  />
                             <input type="submit" class="btn btn-danger my-2" value="Izbriši"/>
                         </form>
                     </div>

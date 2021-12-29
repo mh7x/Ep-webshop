@@ -93,6 +93,24 @@ $urls = [
     "update_customer" => function() {
         UserController::update_customer();
     },
+    "customer-edit" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "GET"){
+            UserController::editCustomerView();
+        }
+        else{
+            UserController::editCustomer();
+        }
+    },
+    "customer-delete" => function() {
+        UserController::deleteCustomer();
+    },
+    "add-customer" => function() {
+        if ($_SERVER["REQUEST_METHOD"] === "GET"){
+            UserController::addCustomerView();
+        }else{
+            UserController::addCustomer();
+        }
+    },
     "product/edit" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::edit();
