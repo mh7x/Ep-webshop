@@ -15,6 +15,10 @@ class ArticleController {
     }
 
     public static function add() {
+        if ($_SESSION["userStatus"] != "prodajalec") {
+            echo ViewHelper::redirect(BASE_URL);
+        }
+
         $data = filter_input_array(INPUT_POST, self::getRules());
 
         if (self::checkValues($data)) {
@@ -26,6 +30,10 @@ class ArticleController {
     }
 
     public static function editForm($article = []) {
+        if ($_SESSION["userStatus"] != "prodajalec") {
+            echo ViewHelper::redirect(BASE_URL);
+        }
+
         if (empty($article)) {
             $rules = [
                 "id" => [
@@ -48,6 +56,10 @@ class ArticleController {
     }
 
     public static function edit() {
+        if ($_SESSION["userStatus"] != "prodajalec") {
+            echo ViewHelper::redirect(BASE_URL);
+        }
+        
         $rules = self::getRules();
         $rules["id"] = [
             "filter" => FILTER_VALIDATE_INT,
@@ -64,6 +76,10 @@ class ArticleController {
     }
 
     public static function delete() {
+        if ($_SESSION["userStatus"] != "prodajalec") {
+            echo ViewHelper::redirect(BASE_URL);
+        }
+        
         $rules = [
             "delete_confirmation" => FILTER_REQUIRE_SCALAR,
             "id" => [
@@ -88,7 +104,6 @@ class ArticleController {
     }
 
     public static function rate() {
-        var_dump($_POST);
         ArticleDB::rate([
             "sumReview" => $_POST["rating"],
             "id" => $_POST["id"]
