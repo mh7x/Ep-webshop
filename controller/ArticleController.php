@@ -104,6 +104,10 @@ class ArticleController {
     }
 
     public static function rate() {
+        if ($_SESSION["loggedIn"] == false) {
+            viewHelper::redirect(BASE_URL);
+        }
+        
         ArticleDB::rate([
             "sumReview" => $_POST["rating"],
             "id" => $_POST["id"]

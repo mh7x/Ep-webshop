@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS Oseba (
     email TEXT NOT NULL,
     geslo TEXT NOT NULL,
     aktiven BOOLEAN NOT NULL,
-    status TEXT NOT NULL
+    status TEXT NOT NULL,
+    potrjen BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Posta (
@@ -56,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `order_item` (
 );
 
 
-INSERT INTO Oseba (ime, priimek, email, geslo, aktiven, status) VALUES ("The", "Admin", "admin@gmail.com", "admin", TRUE, "admin");
+INSERT INTO Oseba (ime, priimek, email, geslo, aktiven, status, potrjen) VALUES ("The", "Admin", "admin@gmail.com", "admin", TRUE, "admin", TRUE);
 INSERT INTO `article` VALUES
 (1, 'Stol', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", 123.99, 'stolec.jpg', 4, 4, 1),
 (2, 'Miza', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", 199.99, 'miza.jpg', 3, 3, 1),

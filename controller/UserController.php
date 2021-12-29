@@ -30,21 +30,22 @@ class UserController {
         if ($user == NULL) {
             $data = ["sporocilo" => "Uporabnik s tem e-naslovom ne obstaja."];
             echo ViewHelper::render("view/signin.php", ["data" => $data]);
+        } else if ($user["potrjen"] == false) {
+            $data = ["sporocilo" => "Uporabnik s tem e-naslovom še ni aktiviran."];
+            echo ViewHelper::render("view/signin.php", ["data" => $data]);
         } else {
             if (($user["id"] == 1 && $user["geslo"] === $filteredData["password"]) || password_verify($filteredData["password"], $user["geslo"])) {
                 // preverimo če je user aktiven
-                if ($user["aktiven"] == true){
+                if ($user["aktiven"] == true) {
                     $_SESSION["loggedIn"] = true;
                     $_SESSION["userId"] = $user["id"];
                     $_SESSION["userEmail"] = $user["email"];
                     $_SESSION["userStatus"] = $user["status"];
                     echo ViewHelper::redirect(BASE_URL);
-                }
-                else{
+                } else {
                     $data = ["sporocilo" => "Ta uporabnik je začasno deaktiviran."];
                     echo ViewHelper::render("view/signin.php", ["data" => $data]);
                 }
-
             } else {
                 $data = ["sporocilo" => "Vnesli ste napačno geslo."];
                 echo ViewHelper::render("view/signin.php", ["data" => $data]);
@@ -69,15 +70,15 @@ class UserController {
         if ($_SESSION["loggedIn"] == false) {
             echo ViewHelper::redirect(BASE_URL);
         }
-        
+
         $id = $_SESSION["userId"];
         $params = ["id" => $id];
-        if($_SESSION["userStatus"] === "stranka"){
-            $user = UserDB::getCustomerById($params);
-        }else{
+        if ($_SESSION["userStatus"] === "stranka") {
+            var_dump(UserDB::getCustomerById());
+        } else {
             $user = UserDB::getUserById($params);
         }
-        echo ViewHelper::render("view/profile.php", ["user" => $user]);
+        echo ViewHelper::render("view/profile.php", []);
     }
 
     public static function change_password() {
@@ -165,7 +166,7 @@ class UserController {
         $user = UserDB::createUser($filteredData);
     }
 
-    public static function addSeller(){
+    public static function addSeller() {
         $rules = [
             "name" => [
                 'filter' => FILTER_VALIDATE_STRING
@@ -186,22 +187,21 @@ class UserController {
         $filteredData["password"] = $hashedPassword;
         $filteredData["aktiven"] = true;
         $filteredData["status"] = "prodajalec";
-        
+
         $loginParams = ["email" => $filteredData["email"]];
         $user = UserDB::getLoginUser($loginParams);
-        if ($user != NULL){
+        if ($user != NULL) {
             // uporabnik s tem e-naslovom že obstaja
             $data = ["sporocilo" => "Uporabnik s tem e-naslovom že obstaja."];
             echo ViewHelper::render("view/add-seller.php", ["data" => $data]);
-        }
-        else{
+        } else {
             $seller = UserDB::createSeller($filteredData);
             $data = ["sporocilo" => "Uspešno ustvarjen prodajalec."];
             echo ViewHelper::render("view/add-seller.php", ["data" => $data]);
         }
     }
 
-    public static function editForm(){
+    public static function editForm() {
         $rules = [
             "id" => [
                 "filter" => FITLER_VALIDATE_INT,
@@ -251,4 +251,5 @@ class UserController {
         $success = UserDB::deleteSeller($filteredData);
         echo ViewHelper::redirect(BASE_URL . "control-panel-admin");
     }
+
 }

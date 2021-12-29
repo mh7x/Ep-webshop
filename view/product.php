@@ -58,13 +58,15 @@
                             </div>
                             <italic class="small">(Št. ocen: <?= $article["numReview"] ?>)</italic>
                         </div>
-                        <div class="align-items-center mt-2 d-inline-flex">
-                            <form action="<?= BASE_URL . "product/rate" ?>" method="POST">
-                                <input type="hidden" name="id"value="<?= $article["id"] ?>">
-                                <input type="number" name="rating" class="form-control" min="1" max="5" value="5">
-                                <button class="btn btn-outline-dark mt-2" type="submit">Dodaj oceno</button>
-                            </form>
-                        </div>
+                        <?php if (isset ($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == true) { ?>
+                            <div class = "align-items-center mt-2 d-inline-flex">
+                                <form action = "<?= BASE_URL . "product/rate" ?>" method = "POST">
+                                    <input type = "hidden" name = "id"value = "<?= $article["id"] ?>">
+                                    <input type = "number" name = "rating" class = "form-control" min = "1" max = "5" value = "5">
+                                    <button class = "btn btn-outline-dark mt-2" type = "submit">Dodaj oceno</button>
+                                </form>
+                            </div>';
+                        <?php } ?>
                         <hr>
                         <form action="<?= BASE_URL . "cart" ?>" method="POST">
                             <input type="hidden" name="do" value="add_into_cart" />
