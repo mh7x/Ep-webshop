@@ -246,7 +246,7 @@ class UserController {
                 'filter' => FILTER_VALIDATE_INT
             ]
         ];
-        $filteredData = filter_input_array(INPUT_GET, $rules);
+        $filteredData = filter_input_array(INPUT_POST, $rules);
         $success = UserDB::deleteSeller($filteredData);
         echo ViewHelper::redirect(BASE_URL . "control-panel-admin");
     }
@@ -294,6 +294,17 @@ class UserController {
         $params = ["address" => $filteredData["address"], "post_number" => $filteredData["post_number"], "city" => $filteredData["city"], "id" => $filteredData["id"]];
         $customer = UserDB::updateCustomer($params);
 
+        echo ViewHelper::redirect("control-panel-seller");
+    }
+
+    public static function deleteCustomer() {
+        $rules = [
+            "id" => [
+                'filter' => FILTER_VALIDATE_INT
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $success = UserDB::deleteCustomer($filteredData);
         echo ViewHelper::redirect("control-panel-seller");
     }
 }

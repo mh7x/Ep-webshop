@@ -55,7 +55,7 @@
                             <input type="submit" class="btn btn-success mt-2" value="Shrani" />
                         </form>
                         <hr>
-                        <form action="<?= BASE_URL . "customer-delete" ?>" method="DELETE">
+                        <form action="<?= BASE_URL . "customer-delete" ?>" method="POST">
                             <input type="hidden" name="id" value="<?= $customer["id"] ?>"  />
                             <input type="submit" class="btn btn-danger my-2" value="Izbriši"/>
                         </form>

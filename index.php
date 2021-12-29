@@ -101,6 +101,9 @@ $urls = [
             UserController::editCustomer();
         }
     },
+    "customer-delete" => function() {
+        UserController::deleteCustomer();
+    },
     "product/edit" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ArticleController::edit();

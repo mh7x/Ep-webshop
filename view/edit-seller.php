@@ -43,7 +43,7 @@
                             <input type="submit" class="btn btn-success mt-2" value="Shrani" />
                         </form>
                         <hr>
-                        <form action="<?= BASE_URL . "seller/delete" ?>" method="DELETE">
+                        <form action="<?= BASE_URL . "seller/delete" ?>" method="POST">
                             <input type="hidden" name="id" value="<?= $seller["id"] ?>"  />
                             <input type="submit" class="btn btn-danger my-2" value="Izbriši"/>
                         </form>
