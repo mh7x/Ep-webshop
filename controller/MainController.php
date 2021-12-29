@@ -40,7 +40,8 @@ class MainController {
     public static function controlPanelSeller() {
         echo ViewHelper::render("view/control-panel-seller.php", [
             "articles" => ArticleDB::getAll(),
-            "orders" => OrderDB::getAll()
+            "orders" => OrderDB::getAll(),
+            "customers" => UserDB::getAllCustomers()
         ]);
     }
 

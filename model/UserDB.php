@@ -89,4 +89,8 @@ class UserDB extends AbstractDB {
         $customerParams = ["post_number" => $params["post_number"], "address" => $params["address"], "id" => $params["id"]];
         $customer = parent::query("UPDATE Stranka SET naslov = :address, posta = :post_number WHERE id_osebe = :id", $customerParams);
     }
+
+    public static function getAllCustomers() {
+        return parent::query("SELECT * FROM Oseba o JOIN Stranka s ON o.id = s.id_osebe JOIN Posta p ON s.posta = p.stevilka WHERE o.status = 'stranka'");
+    }
 }

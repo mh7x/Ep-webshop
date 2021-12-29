@@ -250,4 +250,50 @@ class UserController {
         $success = UserDB::deleteSeller($filteredData);
         echo ViewHelper::redirect(BASE_URL . "control-panel-admin");
     }
+
+    public static function editCustomerView() {
+        $rules = [
+            "id" => [
+                'filter' => FILTER_VALIDATE_INT
+            ]
+        ];
+        $filteredData = filter_input_array(INPUT_GET, $rules);
+        $customer = UserDB::getCustomerById($filteredData);
+        echo ViewHelper::render("view/edit-customer.php", ["customer" => $customer]);
+    }
+
+    public static function editCustomer() {
+        $rules = [
+            "id" => [
+                'filter' => FILTER_VALIDATE_INT
+            ],
+            "name" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "surname" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "email" => [
+                'filter' => FILTER_VALIDATE_EMAIL
+            ],
+            "address" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ],
+            "post_number" => [
+                'filter' => FILTER_VALIDATE_INT
+            ],
+            "city" => [
+                'filter' => FILTER_VALIDATE_STRING
+            ]
+        ];
+
+        $filteredData = filter_input_array(INPUT_POST, $rules);
+        $params = ["name" => $filteredData["name"], "surname" => $filteredData["surname"], "email" => $filteredData["email"], "id" => $filteredData["id"]];
+        $user = UserDB::updateUser($params);
+
+        $params = ["address" => $filteredData["address"], "post_number" => $filteredData["post_number"], "city" => $filteredData["city"], "id" => $filteredData["id"]];
+        $customer = UserDB::updateCustomer($params);
+
+        echo ViewHelper::redirect("control-panel-seller");
+    }
 }
