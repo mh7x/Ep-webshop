@@ -31,15 +31,13 @@
         </header>
 
         <div class="contrainer">
-            <div class="form container px-4 px-lg-5 mt-5">
+            <div class="form container px-4 px-lg-5 mt-5 mx-10">
                 <form action="<?= BASE_URL . "add-customer"?>" method="POST">
-                    <div class="form-row my-3">
-                        <div class="form-group">
-                            <input type="text" name="name" id="name" class="sign form-control" placeholder="Ime">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="surname" id="surname" class="sign form-control" placeholder="Priimek">
-                        </div>
+                    <div class="form-group my-3">
+                        <input type="text" name="name" id="name" class="sign form-control" placeholder="Ime">
+                    </div>
+                    <div class="form-group my-3">
+                        <input type="text" name="surname" id="surname" class="sign form-control" placeholder="Priimek">
                     </div>
                     <div class="form-group my-3">
                         <input type="email" id="email" name="email" class="sign form-control" placeholder="E-pošta">
