@@ -45,7 +45,8 @@ class MainController {
         if ($_SESSION["userStatus"] == "prodajalec") {
             echo ViewHelper::render("view/control-panel-seller.php", [
                 "articles" => ArticleDB::getAll(),
-                "orders" => OrderDB::getAll()
+                "orders" => OrderDB::getAll(),
+                "customers" => UserDB::getAllCustomers()
             ]);
         } else {
             echo ViewHelper::redirect(BASE_URL);
