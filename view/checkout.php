@@ -28,7 +28,6 @@
             </div>
         </header>
 
-        <?= var_dump($_SESSION); var_dump($user); var_dump($customer) ?>
         <section>
             <div class="form container my-5 py-5">
                 <form action="<?= BASE_URL . "summary" ?>" method="post" >
@@ -44,19 +43,13 @@
                         <input type="email" class="form-control" placeholder="E-pošta" value="<?php echo(($_SESSION["loggedIn"] == true) ? $user["email"] : '') ?>">
                     </div>
                     <div class="form-group my-3">
-                        <input type="text" class="form-control" placeholder="Telefonska števila">
+                        <input type="text" class="form-control" placeholder="Naslov" value="<?= $customer["naslov"] ?>">
                     </div>
                     <div class="form-group my-3">
-                        <input type="text" class="form-control" placeholder="Naslov">
+                        <input type="text" class="form-control" placeholder="Poštna številka" value="<?= $customer["posta"] ?>">
                     </div>
                     <div class="form-group my-3">
-                        <input type="text" class="form-control" placeholder="Poštna številka">
-                    </div>
-                    <div class="form-group my-3">
-                        <input type="text" class="form-control" placeholder="Mesto">
-                    </div>
-                    <div class="form-group my-3">
-                        <input type="text" class="form-control" placeholder="Država">
+                        <input type="text" class="form-control" placeholder="Mesto" value="<?= $customer["kraj"] ?>">
                     </div>
                     <input type="checkbox" class="mb-4" id="terms" value="">
                     <label class="form-check-label" for="terms">

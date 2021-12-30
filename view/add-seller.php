@@ -15,7 +15,7 @@
         
 
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <title>Dodaj prodajalca</title>
+        <title>Dodaj stranko</title>
     </head>
 
     <body>
@@ -24,8 +24,8 @@
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Nov prodajalec</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Vnesi podatke za novega prodajalca</p>
+                    <h1 class="display-4 fw-bolder">Nova stranka</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Vnesi podatke za novo stranko</p>
                 </div>
             </div>
         </header>

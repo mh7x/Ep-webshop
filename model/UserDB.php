@@ -72,7 +72,8 @@ class UserDB extends AbstractDB {
     }
 
     public static function getCustomerById(array $params){
-        return parent::query("SELECT * FROM Oseba o JOIN Stranka s ON o.id = s.id_osebe JOIN Posta p ON s.posta = p.stevilka WHERE o.status = 'stranka' and o.id = :id", $params);
+        $customer = parent::query("SELECT * FROM Oseba o JOIN Stranka s ON o.id = s.id_osebe JOIN Posta p ON s.posta = p.stevilka WHERE o.status = 'stranka' and o.id = :id", $params);
+        return $customer[0];
     }
 
     public static function updateCustomer(array $params) {
