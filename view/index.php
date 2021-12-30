@@ -19,7 +19,7 @@
     </head>
 
     <body>
-        <?php include("layout/navbar.php"); var_dump(UserDB::getCustomerById()) ?>
+        <?php include("layout/navbar.php") ?>
 
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
@@ -32,17 +32,17 @@
 
         <div class="container mt-5 d-flex justify-content-center">
             <div class="row">
-                <div class="col">
-                    <input class="sign form-control form-control-lg form-control-borderless" type="search"
-                           placeholder="Išči artikle">
-                </div>
-                <div class="col">
-                    <button class="btn btn-outline-dark" type="submit">Išči</button>
-                </div>
+                <form action="<?= BASE_URL ?>" method="POST" class="d-flex">
+                    <input class="sign form-control form-control-lg form-control-borderless" type="text" name="search" placeholder="Išči artikle...">
+                    <button class="btn btn-outline-dark mx-3 px-4" type="submit">Išči</button>
+                </form>
             </div>
         </div>
 
         <div class="container px-4 px-lg-5 mt-5">
+            <?php if (isset($message)) { ?>
+                <h4 class="text-center my-4"><?= $message ?></h4>
+            <?php } ?>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <?php foreach ($articles as $article): ?>
                     <div class="col mb-5">
@@ -78,5 +78,5 @@
 
         <?php include("layout/footer.php") ?>
     </body>
-    
+
 </html>

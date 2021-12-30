@@ -8,8 +8,39 @@ require_once("ViewHelper.php");
 class MainController {
 
     public static function index() {
+        if (isset($_POST["search"])) {
+            $searchq = $_POST["search"];
+            $searchq = preg_replace("#[^a-z]i#", "", $searchq);
+
+            $results = ArticleDB::search(["searchq" => $searchq]);
+
+            if ($_POST["search"] == "") {
+                echo ViewHelper::render("view/index.php", [
+                    "articles" => ArticleDB::getAll(),
+                    "message" => "",
+                ]);
+                exit();
+            }
+
+            if (count($results) == 0) {
+                echo ViewHelper::render("view/index.php", [
+                    "message" => "Nismo našli artikla s to poizvedbo!",
+                    "articles" => []
+                ]);
+                exit();
+            } else {
+                echo viewHelper::render("view/index.php", [
+                    "message" => "Število najdenih artiklov: " . count($results),
+                    "articles" => $results
+                ]);
+                
+                exit();
+            }
+        }
+
         echo ViewHelper::render("view/index.php", [
-            "articles" => ArticleDB::getAll()
+            "articles" => ArticleDB::getAll(),
+            "message" => "",
         ]);
     }
 

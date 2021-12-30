@@ -40,4 +40,9 @@ class ArticleDB extends AbstractDB {
     public static function rate(array $params) {
         return parent::modify("UPDATE article SET sumReview = sumReview + :sumReview, numReview = numReview + 1, review = sumReview / numReview WHERE id = :id", $params);      
     }
+    
+    public static function search(array $params) {
+        $temp = "%" . $params["searchq"] . "%";
+        return parent::query("SELECT * FROM article WHERE title LIKE '%$temp%'");
+    }
 }
