@@ -174,16 +174,16 @@ class UserController {
     public static function addSeller() {
         $rules = [
             "name" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "surname" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "email" => [
                 'filter' => FILTER_VALIDATE_EMAIL
             ],
             "password" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ]
         ];
         $filteredData = filter_input_array(INPUT_POST, $rules);
