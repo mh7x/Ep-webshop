@@ -26,7 +26,7 @@
                 <div class="row mt-5 text-center">
                     <h3>Dodaj artikel</h3>
                     <div class="form container mt-3">
-                        <form action="<?= BASE_URL . 'product/add' ?>" method="post">
+                        <form action="<?= BASE_URL . 'product/add' ?>" method="post" enctype="multipart/form-data">
                             <div class="form-group my-3">
                                 <input type="text" name="title" value="<?= $title ?>" class="form-control" placeholder="Naziv">
                             </div>

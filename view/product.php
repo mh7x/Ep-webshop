@@ -65,7 +65,7 @@
                                     <input type = "number" name = "rating" class = "form-control" min = "1" max = "5" value = "5">
                                     <button class = "btn btn-outline-dark mt-2" type = "submit">Dodaj oceno</button>
                                 </form>
-                            </div>';
+                            </div>
                         <?php } ?>
                         <hr>
                         <form action="<?= BASE_URL . "cart" ?>" method="POST">

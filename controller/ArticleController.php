@@ -9,7 +9,7 @@ class ArticleController {
                 "title" => "",
                 "price" => "",
                 "description" => "",
-                "photo" => "stolec.jpg"
+                "photo" => ""
             ]) {
         echo ViewHelper::render("view/add-article.php", $values);
     }
@@ -19,11 +19,31 @@ class ArticleController {
             echo ViewHelper::redirect(BASE_URL);
         }
 
+
         $data = filter_input_array(INPUT_POST, self::getRules());
+        var_dump($data);
+        var_dump(getcwd());
 
         if (self::checkValues($data)) {
-            $id = ArticleDB::insert($data);
-            echo ViewHelper::redirect(BASE_URL . "product?id=" . $id);
+            $name = $_FILES['photo']['name'];
+            $target_dir = "public/assets/";
+            $target_file = $target_dir . basename($name);
+
+            var_dump($_FILES);
+            var_dump($name);
+
+            $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            $extensions_arr = array("jpg", "jpeg", "png");
+
+            if (in_array($image_file_type, $extensions_arr)) {
+                var_dump($target_dir);
+                if (move_uploaded_file($_FILES['photo']['tmp_name'], $target_dir . $name)) {
+                    var_dump($target_dir);
+                    $data["photo"] = $name;
+                    $id = ArticleDB::insert($data);
+                    echo ViewHelper::redirect(BASE_URL . "product?id=" . $id);
+                }
+            }
         } else {
             self::addForm($data);
         }
@@ -59,7 +79,7 @@ class ArticleController {
         if ($_SESSION["userStatus"] != "prodajalec") {
             echo ViewHelper::redirect(BASE_URL);
         }
-        
+
         $rules = self::getRules();
         $rules["id"] = [
             "filter" => FILTER_VALIDATE_INT,
@@ -79,7 +99,7 @@ class ArticleController {
         if ($_SESSION["userStatus"] != "prodajalec") {
             echo ViewHelper::redirect(BASE_URL);
         }
-        
+
         $rules = [
             "delete_confirmation" => FILTER_REQUIRE_SCALAR,
             "id" => [
@@ -107,7 +127,7 @@ class ArticleController {
         if ($_SESSION["loggedIn"] == false) {
             viewHelper::redirect(BASE_URL);
         }
-        
+
         ArticleDB::rate([
             "sumReview" => $_POST["rating"],
             "id" => $_POST["id"]
@@ -141,7 +161,7 @@ class ArticleController {
         return [
             'title' => FILTER_SANITIZE_SPECIAL_CHARS,
             'description' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'price' => FILTER_VALIDATE_FLOAT,
+            'price' => FILTER_VALIDATE_FLOAT
         ];
     }
 

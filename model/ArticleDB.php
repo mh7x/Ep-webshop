@@ -6,7 +6,7 @@ class ArticleDB extends AbstractDB {
 
     public static function insert(array $params) {
         return parent::modify("INSERT INTO article (title, description, price, photo, review, sumReview, numReview) "
-                        . " VALUES (:title, :description, :price, 'stolec.jpg', 0, 0, 0)", $params);
+                        . " VALUES (:title, :description, :price, :photo, 0, 0, 0)", $params);
     }
 
     public static function update(array $params) {
