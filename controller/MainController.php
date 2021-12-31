@@ -97,7 +97,7 @@ class MainController {
             if (empty($article)) {
                 $rules = [
                     "id" => [
-                        "filter" => FITLER_VALIDATE_INT,
+                        "filter" => FILTER_VALIDATE_INT,
                         "options" => ["min_range" => 1]
                     ]
                 ];

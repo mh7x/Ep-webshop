@@ -21,7 +21,7 @@ class UserController {
                 'filter' => FILTER_VALIDATE_EMAIL
             ],
             "password" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ]
         ];
         $filteredData = filter_input_array(INPUT_POST, $rules);
@@ -89,7 +89,7 @@ class UserController {
     public static function change_password() {
         $rules = [
             "password" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ]
         ];
 
@@ -103,13 +103,13 @@ class UserController {
     public static function update_user() {
         $rules = [
             "name" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "surname" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "email" => [
-                'filter' => FILTER_VALIDATE_EMAIL
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ]
         ];
 
@@ -122,13 +122,13 @@ class UserController {
     public static function update_customer() {
         $rules = [
             "address" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "post_number" => [
                 'filter' => FILTER_VALIDATE_INT
             ],
             "city" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ]
         ];
         $filteredData = filter_input_array(INPUT_POST, $rules);
@@ -140,28 +140,28 @@ class UserController {
     public static function create_user() {
         $rules = [
             "name" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "surname" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "email" => [
                 'filter' => FILTER_VALIDATE_EMAIL
             ],
             "address" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "post_number" => [
                 'filter' => FILTER_VALIDATE_INT
             ],
             "post_city" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "password" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "status" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ]
         ];
         $filteredData = filter_input_array(INPUT_POST, $rules);
@@ -209,7 +209,7 @@ class UserController {
     public static function editForm() {
         $rules = [
             "id" => [
-                "filter" => FITLER_VALIDATE_INT,
+                "filter" => FILTER_VALIDATE_INT,
                 "options" => ["min_range" => 1]
             ]
         ];
@@ -226,10 +226,10 @@ class UserController {
                 'filter' => FILTER_VALIDATE_INT
             ],
             "name" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "surname" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "active" => [
                 'filter' => FILTER_REQUIRE_SCALAR
@@ -275,25 +275,25 @@ class UserController {
     public static function addCustomer() {
         $rules = [
             "name" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "surname" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "email" => [
                 'filter' => FILTER_VALIDATE_EMAIL
             ],
             "address" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "post_number" => [
                 'filter' => FILTER_VALIDATE_INT
             ],
             "post_city" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "password" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ]
         ];
         $filteredData = filter_input_array(INPUT_POST, $rules);
@@ -319,22 +319,22 @@ class UserController {
                 'filter' => FILTER_VALIDATE_INT
             ],
             "name" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "surname" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "email" => [
                 'filter' => FILTER_VALIDATE_EMAIL
             ],
             "address" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ],
             "post_number" => [
                 'filter' => FILTER_VALIDATE_INT
             ],
             "city" => [
-                'filter' => FILTER_VALIDATE_STRING
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS
             ]
         ];
 
