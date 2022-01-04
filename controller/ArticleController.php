@@ -19,18 +19,12 @@ class ArticleController {
             echo ViewHelper::redirect(BASE_URL);
         }
 
-
         $data = filter_input_array(INPUT_POST, self::getRules());
-        var_dump($data);
-        var_dump(getcwd());
 
         if (self::checkValues($data)) {
             $name = $_FILES['photo']['name'];
             $target_dir = "public/assets/";
             $target_file = $target_dir . basename($name);
-
-            var_dump($_FILES);
-            var_dump($name);
 
             $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             $extensions_arr = array("jpg", "jpeg", "png");
@@ -88,8 +82,22 @@ class ArticleController {
         $data = filter_input_array(INPUT_POST, $rules);
 
         if (self::checkValues($data)) {
-            ArticleDB::update($data);
-            ViewHelper::redirect(BASE_URL . "product?id=" . $data["id"]);
+            $name = $_FILES['photo']['name'];
+            $target_dir = "public/assets/";
+            $target_file = $target_dir . basename($name);
+
+            $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            $extensions_arr = array("jpg", "jpeg", "png");
+
+            if (in_array($image_file_type, $extensions_arr)) {
+                var_dump($target_dir);
+                if (move_uploaded_file($_FILES['photo']['tmp_name'], $target_dir . $name)) {
+                    var_dump($target_dir);
+                    $data["photo"] = $name;
+                    ArticleDB::update($data);
+                    ViewHelper::redirect(BASE_URL . "product?id=" . $data["id"]);
+                }
+            }
         } else {
             self::editForm($data);
         }

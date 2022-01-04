@@ -26,13 +26,14 @@ class UserController {
         ];
         $filteredData = filter_input_array(INPUT_POST, $rules);
         $params = ["email" => $filteredData["email"]];
-        $user = UserDB::getLoginUser($params);
+        $userr = UserDB::getLoginUser($params);
+        $user = $userr[0];
         if ($user == NULL) {
             $data = ["sporocilo" => "Uporabnik s tem e-naslovom ne obstaja."];
             echo ViewHelper::render("view/signin.php", ["data" => $data]);
-        } else if ($user["potrjen"] == false) {
-            $data = ["sporocilo" => "Uporabnik s tem e-naslovom še ni aktiviran."];
-            echo ViewHelper::render("view/signin.php", ["data" => $data]);
+//        } else if ($user["potrjen"] == false) {
+//            $data = ["sporocilo" => "Uporabnik s tem e-naslovom še ni aktiviran."];
+//            echo ViewHelper::render("view/signin.php", ["data" => $data]);
         } else {
             if (($user["id"] == 1 && $user["geslo"] === $filteredData["password"]) || password_verify($filteredData["password"], $user["geslo"])) {
                 // preverimo če je user admin 
@@ -45,8 +46,7 @@ class UserController {
                         echo "Neavtoriziran uporabnik nima dostopa administracijske prijave.";
                         exit();
                     }
-                }
-                if ($user["status"] == "prodajalec") {
+                } else if ($user["status"] == "prodajalec") {
                     $authorized_users = ["Tomaz", "Jasa"];
                     $client_cert = filter_input(INPUT_SERVER, "SSL_CLIENT_CERT");
                     $cert_data = openssl_x509_parse($client_cert);
@@ -100,6 +100,7 @@ class UserController {
         $user = [];
         if ($_SESSION["userStatus"] === "stranka") {
             $user = UserDB::getCustomerById($params);
+            var_dump($user);
         } else {
             $user = UserDB::getUserById($params);
         }

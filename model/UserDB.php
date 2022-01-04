@@ -5,14 +5,13 @@ require_once 'model/AbstractDB.php';
 class UserDB extends AbstractDB {
 
     public static function getLoginUser(array $params) {
-        $user = parent::query("SELECT * FROM Oseba WHERE email = :email", $params);
-        return $user[0];
+        return parent::query("SELECT * FROM Oseba WHERE email = :email", $params);
     }
 
     public static function getUserById(array $id) {
         $user = parent::query("SELECT * FROM Oseba WHERE id = :id", $id);
         if (count($user) == 1) {
-            return $user[0];
+            return $user;
         } else {
             throw new InvalidArgumentException("No such user");
         }
@@ -20,12 +19,12 @@ class UserDB extends AbstractDB {
 
     public static function changePassword(array $params) {
         $user = parent::query("UPDATE Oseba SET geslo = :password WHERE id = :id", $params);
-        return $user[0];
+        return $user;
     }
 
     public static function updateUser(array $params) {
         $user = parent::query("UPDATE Oseba SET ime = :name, priimek = :surname, email = :email WHERE id = :id", $params);
-        return $user[0];
+        return $user;
     }
 
     public static function createUser(array $params) {
@@ -41,7 +40,7 @@ class UserDB extends AbstractDB {
 
         // ustvarimo Osebo
         $person_params = ["name" => $params["name"], "surname" => $params["surname"], "email" => $params["email"], "password" => $params["password"], "status" => $params["status"], "active" => true];
-        $person = parent::query("INSERT INTO Oseba (ime, priimek, email, geslo, aktiven, status, potrjen) VALUES (:name, :surname, :email, :password, :active, :status, true)", $person_params);
+        $person = parent::query("INSERT INTO Oseba (ime, priimek, email, geslo, aktiven, status) VALUES (:name, :surname, :email, :password, :active, :status)", $person_params);
         $person = parent::query("SELECT * FROM Oseba WHERE email = :email", ["email" => $person_params["email"]]);
 
         // zdaj pa še stranko
@@ -53,7 +52,7 @@ class UserDB extends AbstractDB {
 
     public static function createSeller(array $params) {
         $person_params = ["name" => $params["name"], "surname" => $params["surname"], "email" => $params["email"], "password" => $params["password"], "status" => $params["status"], "active" => true];
-        $person = parent::query("INSERT INTO Oseba (ime, priimek, email, geslo, aktiven, status, potrjen) VALUES (:name, :surname, :email, :password, :active, :status, TRUE)", $person_params);
+        $person = parent::query("INSERT INTO Oseba (ime, priimek, email, geslo, aktiven, status) VALUES (:name, :surname, :email, :password, :active, :status)", $person_params);
         return $person;
     }
 
@@ -72,8 +71,7 @@ class UserDB extends AbstractDB {
     }
 
     public static function getCustomerById(array $params){
-        $customer = parent::query("SELECT * FROM Oseba o JOIN Stranka s ON o.id = s.id_osebe JOIN Posta p ON s.posta = p.stevilka WHERE o.status = 'stranka' and o.id = :id", $params);
-        return $customer[0];
+        return parent::query("SELECT * FROM Oseba o JOIN Stranka s ON o.id = s.id_osebe JOIN Posta p ON s.posta = p.stevilka WHERE o.status = 'stranka' and o.id = :id", $params);
     }
 
     public static function updateCustomer(array $params) {
