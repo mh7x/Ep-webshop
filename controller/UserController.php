@@ -35,6 +35,27 @@ class UserController {
             echo ViewHelper::render("view/signin.php", ["data" => $data]);
         } else {
             if (($user["id"] == 1 && $user["geslo"] === $filteredData["password"]) || password_verify($filteredData["password"], $user["geslo"])) {
+                // preverimo če je user admin 
+                if ($user["status"] == "admin") {
+                    $authorized_users = ["admin"];
+                    $client_cert = filter_input(INPUT_SERVER, "SSL_CLIENT_CERT");
+                    $cert_data = openssl_x509_parse($client_cert);
+                    $commonname = $cert_data['subject']['CN'];
+                    if (!in_array($commonname, $authorized_users)) {
+                        echo "Neavtoriziran uporabnik nima dostopa administracijske prijave.";
+                        exit();
+                    }
+                }
+                if ($user["status"] == "prodajalec") {
+                    $authorized_users = ["Tomaz", "Jasa"];
+                    $client_cert = filter_input(INPUT_SERVER, "SSL_CLIENT_CERT");
+                    $cert_data = openssl_x509_parse($client_cert);
+                    $commonname = $cert_data['subject']['CN'];
+                    if (!in_array($commonname, $authorized_users)) {
+                        echo "Neavtoriziran uporabnik nima dostopa prodajalske prijave.";
+                        exit();
+                    }
+                }
                 // preverimo če je user aktiven
                 if ($user["aktiven"] == true) {
                     $_SESSION["loggedIn"] = true;
@@ -77,9 +98,9 @@ class UserController {
         $id = $_SESSION["userId"];
         $params = ["id" => $id];
         $user = [];
-        if($_SESSION["userStatus"] === "stranka"){
+        if ($_SESSION["userStatus"] === "stranka") {
             $user = UserDB::getCustomerById($params);
-        }else{
+        } else {
             $user = UserDB::getUserById($params);
         }
         $data = ["user" => $user];
@@ -300,7 +321,7 @@ class UserController {
         $filteredData["status"] = "stranka";
 
         $user = UserDB::getLoginUser(["email" => $filteredData["email"]]);
-        if ($user != NULL){
+        if ($user != NULL) {
             $data = ["sporocilo" => "Uporabnik s tem e-naslovom že obstaja."];
             echo ViewHelper::render("view/add-customer.php", ["data" => $data]);
             return;
@@ -358,4 +379,5 @@ class UserController {
         $success = UserDB::deleteCustomer($filteredData);
         echo ViewHelper::redirect("control-panel-seller");
     }
+
 }

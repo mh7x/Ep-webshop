@@ -41,7 +41,7 @@ class UserDB extends AbstractDB {
 
         // ustvarimo Osebo
         $person_params = ["name" => $params["name"], "surname" => $params["surname"], "email" => $params["email"], "password" => $params["password"], "status" => $params["status"], "active" => true];
-        $person = parent::query("INSERT INTO Oseba (ime, priimek, email, geslo, aktiven, status, potrjen) VALUES (:name, :surname, :email, :password, :active, :status, false)", $person_params);
+        $person = parent::query("INSERT INTO Oseba (ime, priimek, email, geslo, aktiven, status, potrjen) VALUES (:name, :surname, :email, :password, :active, :status, true)", $person_params);
         $person = parent::query("SELECT * FROM Oseba WHERE email = :email", ["email" => $person_params["email"]]);
 
         // zdaj pa še stranko
