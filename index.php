@@ -9,6 +9,7 @@ require_once ("controller/MainController.php");
 require_once ("controller/ArticleController.php");
 require_once ("controller/OrderController.php");
 require_once ("controller/UserController.php");
+require_once ("controller/ApiController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 
@@ -138,6 +139,12 @@ $urls = [
     },
     "my-orders" => function () {
         MainController::myOrdersPage();
+    },
+    "api/products" => function () {
+        ApiController::getAllProducts();
+    },
+    "api/product" => function () {
+        ApiController::getProduct();
     }
 ];
 
