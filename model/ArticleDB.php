@@ -11,7 +11,7 @@ class ArticleDB extends AbstractDB {
 
     public static function update(array $params) {
         return parent::modify("UPDATE article SET title = :title, "
-                        . "description = :description, price = :price"
+                        . "description = :description, price = :price, photo = :photo"
                         . " WHERE id = :id", $params);
     }
 

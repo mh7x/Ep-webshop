@@ -26,7 +26,7 @@
                 <div class="row mt-5 text-center">
                     <h3>Uredi artikel: <?= $article["title"] ?></h3>
                     <div class="form container mt-3">
-                        <form action="<?= BASE_URL . 'product/edit' ?>" method="post">
+                        <form action="<?= BASE_URL . 'product/edit' ?>" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="id" value="<?= $article["id"] ?>"  />
                             <div class="form-group my-3">
                                 <input type="text" name="title" value="<?= $article["title"] ?>" class="form-control">
@@ -39,6 +39,9 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text">€</span>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name="photo" value="<?= $article["photo"] ?>" class="form-control-file" id="photoInput" accept=".jpg,.jpeg,.png">
                             </div>
                             <button class="btn btn-success mt-2">Potrdi</button>
                         </form>
