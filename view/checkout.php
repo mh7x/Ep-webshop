@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <?php include("layout/navbar.php") ?>
+        <?php include("layout/navbar.php"); ?>
 
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
@@ -51,10 +51,6 @@
                     <div class="form-group my-3">
                         <input type="text" class="form-control" placeholder="Mesto" value="<?= $customer["kraj"] ?>">
                     </div>
-                    <input type="checkbox" class="mb-4" id="terms" value="">
-                    <label class="form-check-label" for="terms">
-                        Sprejmite pogoje uporabe
-                    </label>
                     <br>
                     <button class="btn btn-success mb-4">Oddaj naročilo</button>
                 </form>

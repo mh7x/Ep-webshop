@@ -324,6 +324,7 @@ class UserController {
         $user = UserDB::getLoginUser(["email" => $filteredData["email"]]);
         if ($user != NULL) {
             $data = ["sporocilo" => "Uporabnik s tem e-naslovom že obstaja."];
+            var_dump($data);
             echo ViewHelper::render("view/add-customer.php", ["data" => $data]);
             return;
         }
@@ -332,7 +333,7 @@ class UserController {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $filteredData["password"] = $hashedPassword;
         $user = UserDB::createUser($filteredData);
-        echo ViewHelper::redirect("control-panel-seller");
+        ViewHelper::redirect(BASE_URL . "control-panel-seller");
     }
 
     public static function editCustomer() {
