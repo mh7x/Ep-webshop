@@ -1,6 +1,6 @@
 RewriteEngine On
 RewriteCond %{HTTPS} off
-RewriteRule ".*" "https://%{HTTP_HOST}%{REQUEST_URI}"
+RewriteRule ^(?!.*api).*$ "https://%{HTTP_HOST}%{REQUEST_URI}"
 
 SSLVerifyClient optional
 SSLVerifyDepth 1
